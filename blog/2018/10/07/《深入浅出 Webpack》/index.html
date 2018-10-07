@@ -8,11 +8,11 @@
   <meta name="description" content="webpack">
 <meta property="og:type" content="article">
 <meta property="og:title" content="《深入浅出 Webpack》">
-<meta property="og:url" content="http://yoursite.com/blog/2018/10/07/typedemo/index.html">
+<meta property="og:url" content="http://yoursite.com/blog/2018/10/07/《深入浅出 Webpack》/index.html">
 <meta property="og:site_name" content="许褚喂马">
 <meta property="og:description" content="webpack">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-10-07T14:13:58.979Z">
+<meta property="og:updated_time" content="2018-10-07T14:21:40.635Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="《深入浅出 Webpack》">
 <meta name="twitter:description" content="webpack">
@@ -62,9 +62,9 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-typedemo" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-《深入浅出 Webpack》" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/blog/2018/10/07/typedemo/" class="article-date">
+    <a href="/blog/2018/10/07/《深入浅出 Webpack》/" class="article-date">
   <time datetime="2018-10-07T13:46:30.000Z" itemprop="datePublished">2018-10-07</time>
 </a>
     
@@ -95,8 +95,18 @@
 <p>1、    path.resolve()的参数，我不知道什么意思，老看不懂？p19  </p>
 <p>该path.resolve()方法将一系列路径或路径段解析为绝对路径。<br><a href="https://nodejs.org/dist/latest-v8.x/docs/api/path.html#path_path_resolve_paths" target="_blank" rel="noopener">Node API</a></p>
 <p>下面‘解释’还是有些啰嗦，最简单 log 一下，看一下结果<br>console.log(<strong>dirname);<br>console.log(path.resolve(</strong>dirname, ‘./dist’));<br>结果是：<br>f:\Webpack\webpack-解压\2-9多种配置类型<br>f:\Webpack\webpack-解压\2-9多种配置类型\dist  </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">const path = require(&apos;path&apos;);  </span><br><span class="line"></span><br><span class="line">module.exports = &#123;  </span><br><span class="line">  // JS 执行入口文件  </span><br><span class="line">  entry: &apos;./main.js&apos;,  </span><br><span class="line">  output: &#123;  </span><br><span class="line">    // 把所有依赖的模块合并输出到一个 bundle.js 文件  </span><br><span class="line">    filename: &apos;bundle.js&apos;,  </span><br><span class="line">    // 输出文件都放到 dist 目录下  </span><br><span class="line">    path: path.resolve(__dirname, &apos;./dist&apos;),  </span><br><span class="line">  &#125;  </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>新建以下，内容</p>
+<pre><code>const path = require(&apos;path&apos;);  
+module.exports = {  
+  // JS 执行入口文件  
+  entry: &apos;./main.js&apos;,  
+  output: {  
+    // 把所有依赖的模块合并输出到一个 bundle.js 文件  
+    filename: &apos;bundle.js&apos;,  
+    // 输出文件都放到 dist 目录下  
+    path: path.resolve(__dirname, &apos;./dist&apos;),  
+  }  
+};  
+</code></pre><p>新建以下，内容</p>
 <p>test/ testModule.js 内书写：<br>console.log(<strong>dirname);<br>console.log(</strong>filename);</p>
 <p>app.js 内书写：<br>const testModule1=require(‘./test/testModule.js’);</p>
 <p>$ node app.js<br>f:\Webpack \path.resolve的参数\test<br>f:\Webpack \path.resolve的参数\test\testModule.js</p>
@@ -128,8 +138,14 @@
 <p>5、又刷了一遍API 第二章 不知道能坚持几天不忘 😂 （实战解决一切问题）</p>
 <p>2-8 整体配置结构 P54<br><a href="http://webpack.wuhaolin.cn/2%E9%85%8D%E7%BD%AE/2-8%E6%95%B4%E4%BD%93%E9%85%8D%E7%BD%AE%E7%BB%93%E6%9E%84.html" target="_blank" rel="noopener">http://webpack.wuhaolin.cn/2%E9%85%8D%E7%BD%AE/2-8%E6%95%B4%E4%BD%93%E9%85%8D%E7%BD%AE%E7%BB%93%E6%9E%84.html</a> </p>
 <p>不时的回顾一下，加深影响印象。Ctrl + F 要会用。</p>
-<p>6、是否知道 在启动 Webpack 时带上参数，如何解析这些参数？<br>看到这，才能理解，公司的项目 启动 命令中参数的意义。<br>举例：<br>    “webpack –env.production –env.bao=foo”<br>解析：<br>    {<br>        production: true,<br>        bao: ‘foo’<br>    }</p>
-<p>7、第二章看完，总结<br>    通常我们可用如下经验去判断如何配置 Webpack：</p>
+<p>6、是否知道 在启动 Webpack 时带上参数，如何解析这些参数？<br>看到这，才能理解，公司的项目 启动 命令中参数的意义。<br>举例：  </p>
+<pre><code>&quot;webpack --env.production --env.bao=foo&quot;  
+</code></pre><p>解析： </p>
+<pre><code>{  
+    production: true,  
+    bao: &apos;foo&apos;  
+}  
+</code></pre><p>7、第二章看完，总结<br>    通常我们可用如下经验去判断如何配置 Webpack：</p>
 <ol>
 <li>若想让源文件加入构建流程中被 Webpack 控制， 则配置 entry  ;</li>
 <li>若想自定义输出文件的位置和名称，则配置 output ；</li>
@@ -139,8 +155,18 @@
 </ol>
 <p>8、能否手写一个  ES6 的 class 语法用 ES5 的 prototype 实现？</p>
 <p>9、module 内 rules 中，多个 loader 存在时，默认加载的顺序是怎样的？ </p>
-<p>举例：<br>  module: {<br>    rules: [<br>      {<br>        // 增加对 SCSS 文件的支持<br>        test: /.scss/,<br>        // SCSS 文件的处理顺序为先 sass-loader 再 css-loader 再 style-loader<br>        use: [‘style-loader’, ‘css-loader’, ‘sass-loader’],<br>      },<br>    ]<br>  },</p>
-<p>在一些特殊的 reles 内，可以通过 enforce 改变<br>enforce :’post’ 的含义是把该 Loader 的执行顺序放到最后<br>enforce 的值还可以是 pre，代表把 Loader 的执行顺序放到最前面</p>
+<p>举例：</p>
+<pre><code>module: {  
+  rules: [  
+    {  
+      // 增加对 SCSS 文件的支持  
+      test: /\.scss/,  
+      // SCSS 文件的处理顺序为先 sass-loader 再 css-loader 再 style-loader  
+      use: [&apos;style-loader&apos;, &apos;css-loader&apos;, &apos;sass-loader&apos;],  
+    },  
+  ]  
+}  
+</code></pre><p>在一些特殊的 reles 内，可以通过 enforce 改变<br>enforce :’post’ 的含义是把该 Loader 的执行顺序放到最后<br>enforce 的值还可以是 pre，代表把 Loader 的执行顺序放到最前面</p>
 <p>10、 DefinePlugin 和 process.env 的使用 P92<br>将 DefinePlugin 的作用 ：可以在编译时期创建全局变量<br><a href="https://www.jianshu.com/p/887f0454ef96" target="_blank" rel="noopener">https://www.jianshu.com/p/887f0454ef96</a> </p>
 <p>将 Node 环境变量 process.env 在 webpack 中的应用<br><a href="https://blog.csdn.net/icewfz/article/details/76640319" target="_blank" rel="noopener">https://blog.csdn.net/icewfz/article/details/76640319</a> </p>
 <p>11 、试理解：<link rel="stylesheet" href="app?_inline"> 中 app?_inline ？<br>    app 表示 CSS 代码来自名称 app 的 Chunk 中；<br>    _inline 表示 上面的 Chunk 要被内嵌到这个标签所在的位置。</p>
@@ -152,7 +178,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/blog/2018/10/07/typedemo/" data-id="cjmyy8deg0006xcuqv4kmz8hv" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/blog/2018/10/07/《深入浅出 Webpack》/" data-id="cjmyyit3r0004tcuq4aa92578" class="article-share-link">分享</a>
       
       
       
@@ -261,7 +287,7 @@
           </li>
         
           <li>
-            <a href="/blog/2018/10/07/typedemo/">《深入浅出 Webpack》</a>
+            <a href="/blog/2018/10/07/《深入浅出 Webpack》/">《深入浅出 Webpack》</a>
           </li>
         
           <li>
