@@ -60,6 +60,124 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-浏览器工作原理及在网页性能优化中的应用aeµ" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/blog/2018/10/27/浏览器工作原理及在网页性能优化中的应用aeµ/" class="article-date">
+  <time datetime="2018-10-27T15:47:02.000Z" itemprop="datePublished">2018-10-27</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/视频学习/">视频学习</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/blog/2018/10/27/浏览器工作原理及在网页性能优化中的应用aeµ/">浏览器工作原理及在网页性能优化中的应用æµ</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- Table of Contents -->
+        
+        <p>浏览器工作原理及在网页性能优化中的应用</p>
+<p>内容简介<br>前端同学的开发工作主要都是围绕着浏览器展开的，<br>了解浏览器工作原理不仅有助于编写性能更好的代码，<br>还有助于排查和解决更加底层的“疑难杂症”。  </p>
+<p>本次课程的主要内容有：</p>
+<ol>
+<li>浏览器主要模块介绍</li>
+<li>浏览器基本工作原理</li>
+<li>浏览器的重排和重绘</li>
+<li>JavaScript对浏览器工作的影响</li>
+<li>Chrome 开发者工具中 Performance 的用法</li>
+<li>利用多组实例分析页面加载、解析、执行机制</li>
+<li>性能优化建议</li>
+</ol>
+<p>如果你觉得，有用你可以参照视频，仔细学习，效果更好。<br>浏览器工作原理及在网页性能优化中的应用<br><a href="https://segmentfault.com/l/1500000015237807?r=bPrNrd" target="_blank" rel="noopener">https://segmentfault.com/l/1500000015237807?r=bPrNrd</a> </p>
+<p>浏览器主要模块介绍<br>代码地址：<a href="https://github.com/xuchaobei/examples" target="_blank" rel="noopener">https://github.com/xuchaobei/examples</a> （请使用chrome 浏览器，无痕模式，进行验证实验）</p>
+<p><a href="https://www.cnblogs.com/wjlog/p/5744753.html" target="_blank" rel="noopener">https://www.cnblogs.com/wjlog/p/5744753.html</a> （翻译的很好）</p>
+<p>大纲</p>
+<p>·    浏览器主要模块<br>·    浏览器工作基本流程<br>·    Javascript的影响<br>·    实例分析和优化建议</p>
+<p><img src="/blog/2018/10/27/浏览器工作原理及在网页性能优化中的应用aeµ/2018-10-27-浏览器工作原理及在网页性能优化中的应用aeµ/浏览器的组成.png" alt="浏览器的组成"></p>
+<p>浏览器的组成</p>
+<p>名词解释：<br>1、user interface ：用户界面<br>2、browser engine ：浏览器引擎<br>3、rendering engine ：渲染 引擎<br>4、networking 网络化 ：[计] 网络系统<br>5、JavaScript Interpreter ：JS 解释器<br>6、UI backend ：UI Backend<br>7、data persistence ：数据 存留</p>
+<ol>
+<li>用户界面 － 包括地址栏、后退/前进按钮、书签目录等，也就是你所看到的除了用来显示你所请求页面的主窗口之外的其他部分。<br>　　2. 浏览器引擎 － 用来查询及操作渲染引擎的接口。<br>　　3. 渲染引擎 － 用来显示请求的内容，例如，如果请求内容为html，它负责解析html及css，并将解析后的结果显示出来。</li>
+<li>网络 － 用来完成网络调用，例如http请求，它具有平台无关的接口，可以在不同平台上工作。</li>
+<li>JS解释器 － 用来解释执行JS代码。<br>　　6. UI后端 － 用来绘制类似组合选择框及对话框等基本组件，具有不特定于某个平台的通用接口，底层使用操作系统的用户接口。　　</li>
+<li>数据存储 － 属于持久层，浏览器需要在硬盘中保存类似cookie的各种数据，HTML5定义了web database技术，这是一种轻量级完整的客户端存储技术</li>
+</ol>
+<p>本课程，重点：<br>渲染引擎（Rendering Engine）<br>·    职责：解析HTML和CSS，将Web 页面渲染到浏览器的屏幕上<br>·    分类：Webkit(Safari)，Blink(Chrome), Gecko(FireFox) 美 [‘gɛko]</p>
+<p>JavaScript引擎（JavaScript Interpreter）<br>·    职责：解析和执行JavaScript<br>·    分类：JavaScriptCore（Safari），V8(Chrome), SpiderMonkey(FireFox)</p>
+<p>先抛出问题：</p>
+<p>（HTML 如何显示到浏览器上（元素都是像素点构成））<br>浏览器工作基本流程<br>1、    解析HTML、构建DOM树；解析CSS、构建CSSOM（CSS对象模型）<br>2、    根据DOM和CSSOM，构建渲染树（Render tree）；<br>3、    根据渲染树，计算每个节点在屏幕上的位置、尺寸等信息；<br>4、    将渲染树绘制到屏幕上；</p>
+<p>Webkit主流程</p>
+<p>Attachment：糅合吗？（调和）<br>Painting：绘制</p>
+<p>上图简化为下图：</p>
+<p>Characters：文法/描述 （html 的语义化）<br>Tokenizer：词法分析 （能让浏览器理解的单词）<br>Tree Construction：语法分析</p>
+<p>这是mac 的工具吗？</p>
+<p>CSSOM视图模式</p>
+<p>要求，你能解释，DOM 中的 head 和 p ，并没有在 Render Tree 中没有显示，why?<br>如果，CSSOM 中 p 的显示，由 display none ，改变为 visibility</p>
+<p>重排/回流（reflow）<br>重绘（repaint）<br>·    JS行为<br>1、    修改DOM<br>2、    修改CSS<br>·    用户行为<br>3、    滚动页面<br>4、    改变浏览器窗口大小<br>5、    输入框中输入内容<br>6、    触发：hover 等CSS效果</p>
+<p>若：用户改变背景色，只会重绘并不重排，如果滚动、鼠标、视口大小变化，这就是全部都有。<br>题目：会触发几次重绘和重排呢？</p>
+<p>代码 1 ：</p>
+<p>let foo = document.getElementById(‘foobar’);<br>foo.style.color = ‘blue’;<br>foo.style.marginTop = ‘30px’;<br>代码1，咋一看是，颜色改变了一次重绘，外边距变了这样肯定会重排，那也预示着肯定会重绘。不过浏览器比较，智能不会操作，会把属性改变，放入渲染队列中，最终呈现 ：一次重排一次重绘。</p>
+<p>代码 2 ：</p>
+<p>let foo = document.getElementById(‘foobar’);<br>foo.style.color = ‘blue’;<br>let margin = parseInt(foo.style.marginTop);<br>foo.style.marginTop = (margin + 10) + ‘px’;</p>
+<p>会触发几次重绘和重排呢？</p>
+<p>注意：代码2，颜色属性更改后，此时节点被标记为‘脏’节点，获取脏节点的属性会导致，队列中的更新操作立刻执行。<br>let margin = parseInt(foo.style.marginTop);<br>会立刻 重绘背景的颜色<br>不理解 ： foo.style.marginTop = (margin + 10) + ‘px’; // 怎么导致 1次 重排和1次 重绘的？？？<br>一看就是没有，理解重排肯定会导致重绘原则。<br>回流必定会发生重绘，重绘不一定会引发回流。回流所需的成本比重绘高的多，改变深层次的节点很可能导致父节点的一系列回流。</p>
+<p>老师给的答案：<br>代码1：1次重排和重绘；  代码2：1次重绘+1次重排和重绘。<br>当修改一个DOM 节点时，修改的操作会先缓存到队列，队列中的修改会在下一次的UI线程执行时，批量更新。<br>例外：修改过的节点会被标记为“脏”（Dirty）节点，获取脏节点的属性，会导致队列中的更新操作，立即执行。</p>
+<p>常见优化方案<br>1、    避免对同一个DOM节点的读和写操作交叉进行；<br>2、    在DOM树外部操作DOM，使用document fragment（DOM片段比如：一段div 内部还有其他好多元素）<br>3、    使用position为absolute或fixed的元素创建动画（言外之意是新建图层，因为脱离文档流，不在一个图层操作，性能要好，但是图层不能太多。）<br>4、    window.requestAnimationFrame()<br>5、    虚拟DOM库</p>
+<p>注：window.requestAnimationFrame() 方法告诉浏览器您希望执行动画并请求浏览器在下一次重绘之前调用指定的函数来更新动画。该方法使用一个回调函数作为参数，这个回调函数会在浏览器重绘之前调用。</p>
+<p>实例分析和优化建议</p>
+<p>Javascript 对浏览器的影响</p>
+<p>开始之前，装一个依赖，开启本地服务，老师提供的 serve 不支持window系统。<br>npm install http-server -g</p>
+<p>http-server </p>
+<p>可惜了，我虽然可以，跟着老师的操作，完成这个实验，但怎么描述昵！！！<br>截图吗？<br>首先你在，对应的文件夹，这样操作 http-server 图一，那么Ctrl + 点击 你就能打开图二。最终你就能看到图三，和老师的无差别（注意清除缓存），仔细结合结论查看。<br>图一：</p>
+<p>图二：</p>
+<p>图三：（一定要清除缓存）</p>
+<p>先后点击，下面的案例，观察 性能。（注意清除缓存）</p>
+<p>js-external-in-head-2.html<br>js-internal.html<br>js-external-in-head-1.html<br>js-external-in-head-3.html</p>
+<p>结论：<br>1、    外链JS和内嵌JS，都会阻塞HTML解析。<br>2、    JS 代码执行顺序和 JS 在HTML中的位置顺序 一致。<br>3、    浏览器解析到script 标签时，如果 script内部JS 已知（内嵌 JS或者 外链 JS 已加载完成），就会立即解析和执行JS。</p>
+<p>CSS 间接阻塞解析<br>先后点击，下面的案例，观察 性能。（注意清除缓存）</p>
+<p>css-blocking-js.html<br>css-external.html<br>css-internal.html</p>
+<p>结论：<br>1、    外链CSS 和 内嵌 CSS，都不会阻塞解析。<br>2、    当解析到JS 时，如果前面的还存在没有解析完成的CSS ，则当前 JS解析会被阻塞，直到前面的所有的CSS 都完成解析，这种情况下，会造成 CSS间接阻塞HTML 解析的问题。</p>
+<p>JS 不阻塞解析 （Async 和 Defer）</p>
+<p>Async VS Defer<br>先后点击，下面的案例，观察 性能。（注意清除缓存）</p>
+<p>js-async.html<br>js-defer.html</p>
+<p>动态脚本插入</p>
+<p>js-dynamic-sync.html<br>js-dynamic.html</p>
+<p>结论：<br>1、    Async 和 defer 可以在不阻塞 HTML 解析的情况下，加载外链 JS。Async 在JS文件下载完成后立即执行JS ， defer 则在将 JS 的执行，推迟到，HTML 解析完成后。<br>2、    JS 动态插入的外链脚本，其特性等同于 Async ，此时，如果要保证 JS 执行的顺序，需要设置插入script 的 async = false 。</p>
+<p>JS 放在 body 底部问题<br>首屏绘制时间（First Meaningful Paint）<br>先后点击，下面的案例，观察 性能。（注意清除缓存）</p>
+<p>js-external-in-body-1.html<br>js-external-in-body-2.html<br>js-external-in-body-3.html</p>
+<p>结论：</p>
+<p>1、    首次绘制的时间和 DOMContentLoaded 、 onLoader 事件发生的时间没有直接的关系。<br>2、    body内的外链 JS 可能会触发 浏览器 立即进行首次绘制。</p>
+<p>优化建议：</p>
+<p>1、    CSS 放在head中，减小CSS文件大小，可以考虑直接将首屏依赖的关键CSS内嵌到HTML中，然后异步加载其他次要的CSS。<br>2、    对于不依赖DOM 的JS文件，设置async 和 defer 属性进行异步加载（需要注意JS执行问题）。<br>3、    当JS 必须放到 body 内时，将JS 放到body底部，保证首屏绘制时可以呈现页面的骨架内容，减少用户的白屏感知时间。</p>
+<p>如果你觉得，有用你可以参照视频，仔细学习，效果更好。<br>浏览器工作原理及在网页性能优化中的应用<br><a href="https://segmentfault.com/l/1500000015237807?r=bPrNrd" target="_blank" rel="noopener">https://segmentfault.com/l/1500000015237807?r=bPrNrd</a> </p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/blog/2018/10/27/浏览器工作原理及在网页性能优化中的应用aeµ/" data-id="cjnrmnar7000g6wuqgqp6k90q" class="article-share-link">分享</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+ 
+
+
+  
     <article id="post-旧create-react-app中webpack升级到webpack4" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/blog/2018/10/25/旧create-react-app中webpack升级到webpack4/" class="article-date">
@@ -111,7 +229,7 @@ Inline JavaScript is not enabled. Is it set in your options?
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/blog/2018/10/25/旧create-react-app中webpack升级到webpack4/" data-id="cjnoomibr000dhcuqd4s6lgsb" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/blog/2018/10/25/旧create-react-app中webpack升级到webpack4/" data-id="cjnrmnar6000e6wuqck02ld9l" class="article-share-link">分享</a>
       
       
       
@@ -162,7 +280,7 @@ Inline JavaScript is not enabled. Is it set in your options?
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/blog/2018/10/17/Jocky职业建议/" data-id="cjnoomibt000fhcuqkysob1os" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/blog/2018/10/17/Jocky职业建议/" data-id="cjnrmnars000l6wuqpk6mryyi" class="article-share-link">分享</a>
       
       
       
@@ -209,7 +327,7 @@ Inline JavaScript is not enabled. Is it set in your options?
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/blog/2018/10/17/推荐RESFulAPI/" data-id="cjnoomibo000ahcuq6do9ibxu" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/blog/2018/10/17/推荐RESFulAPI/" data-id="cjnrmnarw000n6wuqupokc2ty" class="article-share-link">分享</a>
       
       
       
@@ -257,7 +375,7 @@ hexo deploy
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/blog/2018/10/16/hexo常规使用/" data-id="cjnoomibn0009hcuqpmpp8igj" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/blog/2018/10/16/hexo常规使用/" data-id="cjnrmnaqf00056wuqsbma5jdl" class="article-share-link">分享</a>
       
       
       
@@ -297,7 +415,7 @@ hexo deploy
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/blog/2018/10/11/webpack2-x升级a到4-x/" data-id="cjnoomibk0006hcuqk8lrundg" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/blog/2018/10/11/webpack2-x升级a到4-x/" data-id="cjnrmnaqj00066wuq0ywl1jhq" class="article-share-link">分享</a>
       
       
       
@@ -345,7 +463,7 @@ hexo deploy
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/blog/2018/10/08/《洛克菲勒留给儿子的38封信》/" data-id="cjnoomibv000hhcuq4wqbb1wz" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/blog/2018/10/08/《洛克菲勒留给儿子的38封信》/" data-id="cjnrmnaru000m6wuqq4y4a6d8" class="article-share-link">分享</a>
       
       
       
@@ -390,7 +508,7 @@ hexo deploy
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/blog/2018/10/08/函数中的this是谁/" data-id="cjnoomibm0007hcuq3gsa9hqq" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/blog/2018/10/08/函数中的this是谁/" data-id="cjnrmnaq700026wuq0ue17q03" class="article-share-link">分享</a>
       
       
       
@@ -431,7 +549,7 @@ hexo deploy
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/blog/2018/10/07/possible/" data-id="cjnoomibe0003hcuqthyem25w" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/blog/2018/10/07/possible/" data-id="cjnrmnaqb00046wuqyxx6x5vy" class="article-share-link">分享</a>
       
       
       
@@ -559,54 +677,7 @@ module.exports = {
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/blog/2018/10/07/《深入浅出 Webpack》/" data-id="cjnoomibi0005hcuquebw8pub" class="article-share-link">分享</a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
- 
-
-
-  
-    <article id="post-demo" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/blog/2018/10/07/demo/" class="article-date">
-  <time datetime="2018-10-07T12:01:33.000Z" itemprop="datePublished">2018-10-07</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/JavaScript/">JavaScript</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/2018/10/07/demo/">test new</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <!-- Table of Contents -->
-        
-        <ul>
-<li>hello</li>
-</ul>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/blog/2018/10/07/demo/" data-id="cjnoomibc0001hcuq7e6f2dwx" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/blog/2018/10/07/《深入浅出 Webpack》/" data-id="cjnrmnar3000c6wuq11cjd75a" class="article-share-link">分享</a>
       
       
       
@@ -652,7 +723,7 @@ module.exports = {
   <div class="widget-wrap">
     <h3 class="widget-title categories">分类</h3>
     <div class="widget" id="categories">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/JavaScript/">JavaScript</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/小记/">小记</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/读书笔记/">读书笔记</a><span class="category-list-count">2</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/JavaScript/">JavaScript</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/小记/">小记</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/视频学习/">视频学习</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/读书笔记/">读书笔记</a><span class="category-list-count">2</span></li></ul>
     </div>
   </div>
 
@@ -663,6 +734,10 @@ module.exports = {
     <h3 class="widget-title recent-posts">最新文章</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/blog/2018/10/27/浏览器工作原理及在网页性能优化中的应用aeµ/">浏览器工作原理及在网页性能优化中的应用æµ</a>
+          </li>
         
           <li>
             <a href="/blog/2018/10/25/旧create-react-app中webpack升级到webpack4/">旧create-react-app中webpack升级到webpack4</a>
@@ -680,10 +755,6 @@ module.exports = {
             <a href="/blog/2018/10/16/hexo常规使用/">hexo常规使用</a>
           </li>
         
-          <li>
-            <a href="/blog/2018/10/11/webpack2-x升级a到4-x/">webpack2.x升级å到4.x</a>
-          </li>
-        
       </ul>
     </div>
   </div>
@@ -693,7 +764,7 @@ module.exports = {
   <div class="widget-wrap">
     <h3 class="widget-title archive">归档</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a><span class="archive-list-count">1</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a><span class="archive-list-count">11</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a><span class="archive-list-count">1</span></li></ul>
     </div>
   </div>
 
