@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<head>
+<head><meta name="generator" content="Hexo 3.8.0">
   <meta charset="utf-8">
   
   <title>许褚喂马</title>
@@ -23,7 +23,7 @@
   
 
 </head>
-
+</html>
 <body>
   <div id="container">
     <div id="wrap">
@@ -60,9 +60,67 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-浏览器工作原理及在网页性能优化中的应用aeµ" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="react-ReactFiber是什么" class="article article-type-react" itemscope="" itemprop="blogPost">
   <div class="article-meta">
-    <a href="/blog/2018/10/27/浏览器工作原理及在网页性能优化中的应用aeµ/" class="article-date">
+    <a href="/blog/2018/10/31/ReactFiber是什么/" class="article-date">
+  <time datetime="2018-10-31T02:03:32.000Z" itemprop="datePublished">2018-10-31</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/小记/">小记</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/blog/2018/10/31/ReactFiber是什么/">ReactFiber是什么</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- Table of Contents -->
+        
+        <h1 id="React-Fiber-是什么"><a href="#React-Fiber-是什么" class="headerlink" title="React Fiber 是什么"></a>React Fiber 是什么</h1><h3 id="先说，主要是为了解决什么问题？"><a href="#先说，主要是为了解决什么问题？" class="headerlink" title="先说，主要是为了解决什么问题？"></a>先说，主要是为了解决什么问题？</h3><p>react 需要渲染界面时，会阻塞主线程直到渲染完成，如果渲染需要一点时间，并且这时候界面上有动画或者用户交互，就会出现卡顿情况。<br>引入 Fiber 后，调度器会智能的管理帧，在不影响体验的情况下，分段计算更新。<br>React 会每 16 ms（以内） 暂停一下更新，返回来继续渲染动画。</p>
+<p>理论看着那啥，还是看例子直观：<br><a href="https://claudiopro.github.io/react-fiber-vs-stack-demo/stack.html" target="_blank" rel="noopener">没有使用 fiber</a><br><a href="https://claudiopro.github.io/react-fiber-vs-stack-demo/fiber.html" target="_blank" rel="noopener">使用 fiber</a></p>
+<p>Fiber 本质上是一个虚拟的堆栈帧，新的调度器会按照优先级自由调度这些帧，从而将之前的同步渲染改成了异步渲染，在不影响体验的情况下去分段计算更新。</p>
+<p><a href="https://zhuanlan.zhihu.com/p/26027085" target="_blank" rel="noopener">大佬程墨 Morgan 的理解</a></p>
+<h3 id="雾蒙蒙…看过，不知所云…"><a href="#雾蒙蒙…看过，不知所云…" class="headerlink" title="雾蒙蒙…看过，不知所云…"></a>雾蒙蒙…看过，不知所云…</h3><p>这样说，React 实现可以分：reconciliation（diff 阶段）和 commit(操作 DOM 阶段)。<br>在 v16 之前，reconciliation 简单说自顶向下递归算法，递归的结果，对当前 DOM 进行更新或替换的操作列表，一旦开始，会持续占用主线程，中断操作却不容易实现。当 JS 长时间执行（如大量计算等），会阻塞样式计算（用户操作）、绘制（动画）等工作，出现页面脱帧现象。所以，v16 进行了一次重写，迎来了代号为 Fiber 的异步渲染架构。</p>
+<p>这样你是不是能理解，Fiber 想干嘛？ 细化 reconciliation （Facebook bie 了两年的大招）</p>
+<h3 id="Fiber-核心是实现了一个基于优先级和-requestIdleCallback-的循环任务调度算法。它包含以下特性：-参考：fiber-reconciler"><a href="#Fiber-核心是实现了一个基于优先级和-requestIdleCallback-的循环任务调度算法。它包含以下特性：-参考：fiber-reconciler" class="headerlink" title="Fiber 核心是实现了一个基于优先级和 requestIdleCallback 的循环任务调度算法。它包含以下特性：(参考：fiber-reconciler)"></a>Fiber 核心是实现了一个基于优先级和 requestIdleCallback 的循环任务调度算法。它包含以下特性：(参考：fiber-reconciler)</h3><pre><code>reconciliation阶段可以把任务拆分成多个小任务
+reconciliation阶段可随时中止或恢复任务
+可以根据优先级不同来选择优先执行任务
+</code></pre><h3 id="Fiber-的影响"><a href="#Fiber-的影响" class="headerlink" title="Fiber 的影响"></a>Fiber 的影响</h3><p>本次改动，影响最大的是生命周期，为了性能和交互也是值得的。<br>以下什么生命周期在 v16 严格模式下会警告，在 v17 会废弃。<br> // reconciliation 阶段<br> componentWillMount<br> componentWillReceiveProps<br> shouldComponentUpdate<br> componentWillUpdate</p>
+<p>以下生命周期不变<br> // commit 阶段<br> componentDidMount<br> componentDidUpdate<br> componentWillUnmount</p>
+<p>以下新增生命周期<br> componentDidCatch(v16.0)<br> static getDerivedStateFromProps<br> getSnapshotBeforeUpdate</p>
+<p>改动建议，原先请求数据，放入 componentDidMount ，还好我是这么操作的。<br>组件通信，需要相互影响重新渲染时， getDerivedStateFromProps 代替 componentWillReceiveProps ，<br>最直观的是，观察 图标，一目了然。<br><a href="https://zhuanlan.zhihu.com/p/38030418" target="_blank" rel="noopener">大佬原文生命周期分析</a>  </p>
+<p><img src="/blog/2018/10/31/ReactFiber是什么/2018-10-31-ReactFiber是什么/react最新生命周期图(20181102" alt="react最新生命周期图(20181102)">.jpg&gt;)  </p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/blog/2018/10/31/ReactFiber是什么/" data-id="cjnze1zb9000g5cuql39m02zp" class="article-share-link">分享</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+ 
+
+
+  
+    <article id="post-浏览器工作原理及在网页性能优化中的应用" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/blog/2018/10/27/浏览器工作原理及在网页性能优化中的应用/" class="article-date">
   <time datetime="2018-10-27T15:47:02.000Z" itemprop="datePublished">2018-10-27</time>
 </a>
     
@@ -78,7 +136,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/blog/2018/10/27/浏览器工作原理及在网页性能优化中的应用aeµ/">浏览器工作原理及在网页性能优化中的应用æµ</a>
+      <a class="article-title" href="/blog/2018/10/27/浏览器工作原理及在网页性能优化中的应用/">浏览器工作原理及在网页性能优化中的应用</a>
     </h1>
   
 
@@ -89,30 +147,33 @@
         <!-- Table of Contents -->
         
         <p>浏览器工作原理及在网页性能优化中的应用</p>
-<p>内容简介<br>前端同学的开发工作主要都是围绕着浏览器展开的，<br>了解浏览器工作原理不仅有助于编写性能更好的代码，<br>还有助于排查和解决更加底层的“疑难杂症”。  </p>
+<p>内容简介<br>主要都是围绕着浏览器展开的，<br>了解浏览器工作原理不仅有助于编写性能更好的代码，<br>还有助于排查和解决更加底层的“疑难杂症”。  </p>
 <p>本次课程的主要内容有：</p>
 <ol>
-<li>浏览器主要模块介绍</li>
-<li>浏览器基本工作原理</li>
-<li>浏览器的重排和重绘</li>
-<li>JavaScript对浏览器工作的影响</li>
-<li>Chrome 开发者工具中 Performance 的用法</li>
-<li>利用多组实例分析页面加载、解析、执行机制</li>
-<li>性能优化建议</li>
+<li>浏览器主要模块介绍   </li>
+<li>浏览器基本工作原理   </li>
+<li>浏览器的重排和重绘   </li>
+<li>JavaScript对浏览器工作的影响   </li>
+<li>Chrome 开发者工具中 Performance 的用法   </li>
+<li>利用多组实例分析页面加载、解析、执行机制   </li>
+<li>性能优化建议   </li>
 </ol>
-<p>如果你觉得，有用你可以参照视频，仔细学习，效果更好。<br>浏览器工作原理及在网页性能优化中的应用<br><a href="https://segmentfault.com/l/1500000015237807?r=bPrNrd" target="_blank" rel="noopener">https://segmentfault.com/l/1500000015237807?r=bPrNrd</a> </p>
-<p>浏览器主要模块介绍<br>代码地址：<a href="https://github.com/xuchaobei/examples" target="_blank" rel="noopener">https://github.com/xuchaobei/examples</a> （请使用chrome 浏览器，无痕模式，进行验证实验）</p>
-<p><a href="https://www.cnblogs.com/wjlog/p/5744753.html" target="_blank" rel="noopener">https://www.cnblogs.com/wjlog/p/5744753.html</a> （翻译的很好）</p>
+<p>如果你觉得，有用你可以参照视频，仔细学习，效果更好。<br>浏览器工作原理及在网页性能优化中的应用<br><a href="https://segmentfault.com/l/1500000015237807?r=bPrNrd" target="_blank" rel="noopener">https://segmentfault.com/l/1500000015237807?r=bPrNrd</a>   </p>
+<p>浏览器主要模块介绍<br><a href="https://github.com/xuchaobei/examples" target="_blank" rel="noopener">演示用例</a><br>（请使用chrome 浏览器，无痕模式，进行验证实验）  </p>
+<p>浏览器的组成<br><a href="https://www.cnblogs.com/wjlog/p/5744753.html" target="_blank" rel="noopener">翻译的很好</a>    </p>
 <p>大纲</p>
 <p>·    浏览器主要模块<br>·    浏览器工作基本流程<br>·    Javascript的影响<br>·    实例分析和优化建议</p>
-<p><img src="/blog/2018/10/27/浏览器工作原理及在网页性能优化中的应用aeµ/2018-10-27-浏览器工作原理及在网页性能优化中的应用aeµ/浏览器的组成.png" alt="浏览器的组成"></p>
+<p><img src="/blog/2018/10/27/浏览器工作原理及在网页性能优化中的应用/2018-10-27-浏览器工作原理及在网页性能优化中的应用/浏览器的组成.jpg" alt="浏览器的组成"></p>
 <p>浏览器的组成</p>
-<p>名词解释：<br>1、user interface ：用户界面<br>2、browser engine ：浏览器引擎<br>3、rendering engine ：渲染 引擎<br>4、networking 网络化 ：[计] 网络系统<br>5、JavaScript Interpreter ：JS 解释器<br>6、UI backend ：UI Backend<br>7、data persistence ：数据 存留</p>
+<p>名词解释：<br>1、user interface ：用户界面<br>2、browser engine ：浏览器引擎<br>3、rendering engine ：渲染 引擎<br>4、networking 网络化 ：[计] 网络系统<br>5、JavaScript Interpreter ：JS 解释器<br>6、UI backend ：UI Backend<br>7、data persistence ：数据 存留   </p>
 <ol>
-<li>用户界面 － 包括地址栏、后退/前进按钮、书签目录等，也就是你所看到的除了用来显示你所请求页面的主窗口之外的其他部分。<br>　　2. 浏览器引擎 － 用来查询及操作渲染引擎的接口。<br>　　3. 渲染引擎 － 用来显示请求的内容，例如，如果请求内容为html，它负责解析html及css，并将解析后的结果显示出来。</li>
-<li>网络 － 用来完成网络调用，例如http请求，它具有平台无关的接口，可以在不同平台上工作。</li>
-<li>JS解释器 － 用来解释执行JS代码。<br>　　6. UI后端 － 用来绘制类似组合选择框及对话框等基本组件，具有不特定于某个平台的通用接口，底层使用操作系统的用户接口。　　</li>
-<li>数据存储 － 属于持久层，浏览器需要在硬盘中保存类似cookie的各种数据，HTML5定义了web database技术，这是一种轻量级完整的客户端存储技术</li>
+<li>用户界面 － 包括地址栏、后退/前进按钮、书签目录等，也就是你所看到的除了用来显示你所请求页面的主窗口之外的其他部分。  </li>
+<li>浏览器引擎 － 用来查询及操作渲染引擎的接口。  </li>
+<li>渲染引擎 － 用来显示请求的内容，例如，如果请求内容为html，它负责解析html及css，并将解析后的结果显示出来。  </li>
+<li>网络 － 用来完成网络调用，例如http请求，它具有平台无关的接口，可以在不同平台上工作。  </li>
+<li>JS解释器 － 用来解释执行JS代码。  </li>
+<li>UI后端 － 用来绘制类似组合选择框及对话框等基本组件，具有不特定于某个平台的通用接口，底层使用操作系统的用户接口。  　　</li>
+<li>数据存储 － 属于持久层，浏览器需要在硬盘中保存类似cookie的各种数据，HTML5定义了web database技术，这是一种轻量级完整的客户端存储技术。  </li>
 </ol>
 <p>本课程，重点：<br>渲染引擎（Rendering Engine）<br>·    职责：解析HTML和CSS，将Web 页面渲染到浏览器的屏幕上<br>·    分类：Webkit(Safari)，Blink(Chrome), Gecko(FireFox) 美 [‘gɛko]</p>
 <p>JavaScript引擎（JavaScript Interpreter）<br>·    职责：解析和执行JavaScript<br>·    分类：JavaScriptCore（Safari），V8(Chrome), SpiderMonkey(FireFox)</p>
@@ -166,7 +227,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/blog/2018/10/27/浏览器工作原理及在网页性能优化中的应用aeµ/" data-id="cjnrmnar7000g6wuqgqp6k90q" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/blog/2018/10/27/浏览器工作原理及在网页性能优化中的应用/" data-id="cjnze1zb9000h5cuq8ejj6szx" class="article-share-link">分享</a>
       
       
       
@@ -178,7 +239,7 @@
 
 
   
-    <article id="post-旧create-react-app中webpack升级到webpack4" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-旧create-react-app中webpack升级到webpack4" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
     <a href="/blog/2018/10/25/旧create-react-app中webpack升级到webpack4/" class="article-date">
   <time datetime="2018-10-25T13:17:53.000Z" itemprop="datePublished">2018-10-25</time>
@@ -229,7 +290,7 @@ Inline JavaScript is not enabled. Is it set in your options?
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/blog/2018/10/25/旧create-react-app中webpack升级到webpack4/" data-id="cjnrmnar6000e6wuqck02ld9l" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/blog/2018/10/25/旧create-react-app中webpack升级到webpack4/" data-id="cjnze1zbk000n5cuq2nz9zmtj" class="article-share-link">分享</a>
       
       
       
@@ -241,7 +302,7 @@ Inline JavaScript is not enabled. Is it set in your options?
 
 
   
-    <article id="post-Jocky职业建议" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-Jocky职业建议" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
     <a href="/blog/2018/10/17/Jocky职业建议/" class="article-date">
   <time datetime="2018-10-16T16:31:34.000Z" itemprop="datePublished">2018-10-17</time>
@@ -280,7 +341,7 @@ Inline JavaScript is not enabled. Is it set in your options?
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/blog/2018/10/17/Jocky职业建议/" data-id="cjnrmnars000l6wuqpk6mryyi" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/blog/2018/10/17/Jocky职业建议/" data-id="cjnze1zbk000k5cuqmvqz6aiw" class="article-share-link">分享</a>
       
       
       
@@ -292,7 +353,7 @@ Inline JavaScript is not enabled. Is it set in your options?
 
 
   
-    <article id="restful-推荐RESFulAPI" class="article article-type-restful" itemscope itemprop="blogPost">
+    <article id="restful-推荐RESFulAPI" class="article article-type-restful" itemscope="" itemprop="blogPost">
   <div class="article-meta">
     <a href="/blog/2018/10/17/推荐RESFulAPI/" class="article-date">
   <time datetime="2018-10-16T16:01:11.000Z" itemprop="datePublished">2018-10-17</time>
@@ -327,7 +388,7 @@ Inline JavaScript is not enabled. Is it set in your options?
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/blog/2018/10/17/推荐RESFulAPI/" data-id="cjnrmnarw000n6wuqupokc2ty" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/blog/2018/10/17/推荐RESFulAPI/" data-id="cjnze1zbk000j5cuq0wn9guhi" class="article-share-link">分享</a>
       
       
       
@@ -339,7 +400,7 @@ Inline JavaScript is not enabled. Is it set in your options?
 
 
   
-    <article id="post-hexo常规使用" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-hexo常规使用" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
     <a href="/blog/2018/10/16/hexo常规使用/" class="article-date">
   <time datetime="2018-10-16T15:16:13.000Z" itemprop="datePublished">2018-10-16</time>
@@ -375,7 +436,7 @@ hexo deploy
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/blog/2018/10/16/hexo常规使用/" data-id="cjnrmnaqf00056wuqsbma5jdl" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/blog/2018/10/16/hexo常规使用/" data-id="cjnze1zak00055cuq8xazzmuz" class="article-share-link">分享</a>
       
       
       
@@ -387,7 +448,7 @@ hexo deploy
 
 
   
-    <article id="post-webpack2-x升级a到4-x" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-webpack2-x升级a到4-x" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
     <a href="/blog/2018/10/11/webpack2-x升级a到4-x/" class="article-date">
   <time datetime="2018-10-11T06:57:49.000Z" itemprop="datePublished">2018-10-11</time>
@@ -415,7 +476,7 @@ hexo deploy
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/blog/2018/10/11/webpack2-x升级a到4-x/" data-id="cjnrmnaqj00066wuq0ywl1jhq" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/blog/2018/10/11/webpack2-x升级a到4-x/" data-id="cjnze1zb9000d5cuqdfuvtid8" class="article-share-link">分享</a>
       
       
       
@@ -427,7 +488,7 @@ hexo deploy
 
 
   
-    <article id="post-《洛克菲勒留给儿子的38封信》" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-《洛克菲勒留给儿子的38封信》" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
     <a href="/blog/2018/10/08/《洛克菲勒留给儿子的38封信》/" class="article-date">
   <time datetime="2018-10-08T14:59:13.000Z" itemprop="datePublished">2018-10-08</time>
@@ -463,7 +524,7 @@ hexo deploy
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/blog/2018/10/08/《洛克菲勒留给儿子的38封信》/" data-id="cjnrmnaru000m6wuqq4y4a6d8" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/blog/2018/10/08/《洛克菲勒留给儿子的38封信》/" data-id="cjnze1zb9000f5cuq8lp3915a" class="article-share-link">分享</a>
       
       
       
@@ -475,7 +536,7 @@ hexo deploy
 
 
   
-    <article id="post-函数中的this是谁" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-函数中的this是谁" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
     <a href="/blog/2018/10/08/函数中的this是谁/" class="article-date">
   <time datetime="2018-10-08T08:23:23.000Z" itemprop="datePublished">2018-10-08</time>
@@ -508,7 +569,7 @@ hexo deploy
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/blog/2018/10/08/函数中的this是谁/" data-id="cjnrmnaq700026wuq0ue17q03" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/blog/2018/10/08/函数中的this是谁/" data-id="cjnze1zag00045cuqc3mzj68a" class="article-share-link">分享</a>
       
       
       
@@ -520,7 +581,7 @@ hexo deploy
 
 
   
-    <article id="post-possible" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-possible" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
     <a href="/blog/2018/10/07/possible/" class="article-date">
   <time datetime="2018-10-07T13:56:17.000Z" itemprop="datePublished">2018-10-07</time>
@@ -549,135 +610,7 @@ hexo deploy
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/blog/2018/10/07/possible/" data-id="cjnrmnaqb00046wuqyxx6x5vy" class="article-share-link">分享</a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
- 
-
-
-  
-    <article id="post-《深入浅出 Webpack》" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/blog/2018/10/07/《深入浅出 Webpack》/" class="article-date">
-  <time datetime="2018-10-07T13:46:30.000Z" itemprop="datePublished">2018-10-07</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/读书笔记/">读书笔记</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/2018/10/07/《深入浅出 Webpack》/">《深入浅出 Webpack》</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <!-- Table of Contents -->
-        
-        <p>《深入浅出Webpack 》读书笔记</p>
-<p>上次看完，开始第四章，中间有事中断几天，然后又拖了几天…….<br>现在不回来，读书笔记，我也不会写，就提问题好了，我不会的，我感到以疑惑，截图，复制（千万不要，为了好看，搞那些耗费精力的外在东西，有强迫症，也不行）<br>    这是一本非常好的书，省去查资料的时间 🤑🤑🤑</p>
-<p>1、    path.resolve()的参数，我不知道什么意思，老看不懂？p19  </p>
-<p>该path.resolve()方法将一系列路径或路径段解析为绝对路径。<br><a href="https://nodejs.org/dist/latest-v8.x/docs/api/path.html#path_path_resolve_paths" target="_blank" rel="noopener">Node API</a></p>
-<p>下面‘解释’还是有些啰嗦，最简单 log 一下，看一下结果<br>console.log(<strong>dirname);<br>console.log(path.resolve(</strong>dirname, ‘./dist’));<br>结果是：<br>f:\Webpack\webpack-解压\2-9多种配置类型<br>f:\Webpack\webpack-解压\2-9多种配置类型\dist  </p>
-<pre><code>const path = require(&apos;path&apos;);  
-module.exports = {  
-  // JS 执行入口文件  
-  entry: &apos;./main.js&apos;,  
-  output: {  
-    // 把所有依赖的模块合并输出到一个 bundle.js 文件  
-    filename: &apos;bundle.js&apos;,  
-    // 输出文件都放到 dist 目录下  
-    path: path.resolve(__dirname, &apos;./dist&apos;),  
-  }  
-};  
-</code></pre><p>新建以下，内容</p>
-<p>test/ testModule.js 内书写：<br>console.log(<strong>dirname);<br>console.log(</strong>filename);</p>
-<p>app.js 内书写：<br>const testModule1=require(‘./test/testModule.js’);</p>
-<p>$ node app.js<br>f:\Webpack \path.resolve的参数\test<br>f:\Webpack \path.resolve的参数\test\testModule.js</p>
-<p>可以看到，打印的是当前文件testModule.js ，所在文件夹的绝对路径 和 文件的绝对路径。</p>
-<p>2、    第一次看 css 被写在了 JavaScript 里，style-loader 的作用？p21</p>
-<pre><code>rules: [
-  {
-    // 用正则去匹配要用该 loader 转换的 css 文件
-    test: /\.css$/,
-    loaders: [&apos;style-loader&apos;, &apos;css-loader&apos;],
-  }
-]
-</code></pre><p>这里Webpack  配置，并没有单独打包css ，而是打包到 JS 中，这其实都是 style-loader 的功劳，它的工作原理大概是将 css 的内容用 JavaScript 里的字符串存储起来，在网页执行 JavaScript 时通过 DOM 操作，动态地向HTML head 标签里插入 HTML style 标签。</p>
-<p>缺点，当css 很大，造成JS 也很大，且加载网页的时间变长。（解决方法，单独打包1.5节）</p>
-<p>3、Loader 和 Plugin 区别，分不清楚？</p>
-<p>Loader 可以看作具有文件转换功能的翻译员，配置里的 module .rules 数组配置了一 组规则 告诉 Webpack  在遇到哪些文件时使用哪些 Loader 去加载和转换。<br>    Plugin 是用来扩展 Webpack  功能的，通过在构建流程里注入钩子实现，它为 Webpack  来了很大的灵活性。<br>构建流程？<br>灵活性？</p>
-<p>额！ 😭 人话怎么说？<br>流程后面，有原理的时候，再补充好了。<br>灵活性，应该是指，想用一个实例就加一个，不用不加或者删除即可。<br>Webpack  是通过 plugins 属性来配置需要使用的插件列表的。<br>plugins 属性是一个数组，里面的每一项都是插件的一个实例，在实例化一个组件时可以通过构造函数传入这个组件支持的配置属性。 P23</p>
-<p>4、第一章看完，核心概念梳理</p>
-<ol>
-<li>Entry ： 入口，Webpack  执行构建的第一步，由 Entry 开始的，可抽象成输入。（所以当修改非输入文件，是不会热更新的，比如修改 index.html 或者 webpage.config.js 需要重新启动）。</li>
-<li>Module ： 模块，在Webpack  里一切皆模块，一个模块对应一个文件。Webpack  会从配置的 Entry 开始递归找出，所有的依赖的模块。</li>
-<li>Chunk ： 代码块，一个Chunk 由多个模块组合而成，用于代码合并和分割。</li>
-<li>Loader ： 模块转换器，用于将模块的原内容按照需求转换成新的内容。（翻译员）</li>
-<li>Plugin ： 扩展插件，在 Webpack 构建流程中的，特定时机注入扩展逻辑，来改变构建结果或者我们想要的事情。</li>
-<li>Output ： 输出结果，在 Webpack 经历一系列的处理，得出最终想要的代码后输出结果。</li>
-</ol>
-<p>Webpack 在启动后会从 Entry 里配置的Module开始，递归解析Entry 依赖的所有Module。每找到一个Module ，就会根据配置的Loader 去找对应的转换规则，对 Module 进行转换后，再解析出当前Module 依赖的 Module。这些模块会以Entry 为单位进行分组（可以配置多文件入口对象，每一个K 对应一个组，即‘组’为单位理解），一个 Entry 及其所有依赖的 Module 被分到一个组也就是一个Chunk 。 最后 Webpack 会将所有的Chunk 转换成文件输出（这个时候是不是就是恰当的时机使用 Plugin）。 在整个流程中， Webpack 会在恰当的时机执行 Plugin 里定义的逻辑。<br>在实际应用中，可能会遇到各种奇怪、复杂的场景，不知道从哪里开始。根据以上总结，我们已经对 Webpack 有一个整体的认识，这能我们在以后使用 Webpack 事快速的知道 应该通过什么配置去完成自己想要的功能。</p>
-<p>希望你记住这6个核心的概念。</p>
-<p>5、又刷了一遍API 第二章 不知道能坚持几天不忘 😂 （实战解决一切问题）</p>
-<p>2-8 整体配置结构 P54<br>逐步看看，权当回忆。<a href="http://webpack.wuhaolin.cn/2%E9%85%8D%E7%BD%AE/2-8%E6%95%B4%E4%BD%93%E9%85%8D%E7%BD%AE%E7%BB%93%E6%9E%84.html" target="_blank" rel="noopener">点击我：</a></p>
-<p>不时的回顾一下，加深影响印象。Ctrl + F 要会用。</p>
-<p>6、是否知道 在启动 Webpack 时带上参数，如何解析这些参数？<br>看到这，才能理解，公司的项目 启动 命令中参数的意义。<br>举例：  </p>
-<pre><code>&quot;webpack --env.production --env.bao=foo&quot;  
-</code></pre><p>解析： </p>
-<pre><code>{  
-    production: true,  
-    bao: &apos;foo&apos;  
-}  
-</code></pre><p>7、第二章看完，总结<br>    通常我们可用如下经验去判断如何配置 Webpack：</p>
-<ol>
-<li>若想让源文件加入构建流程中被 Webpack 控制， 则配置 entry  ;</li>
-<li>若想自定义输出文件的位置和名称，则配置 output ；</li>
-<li>若想自定义寻找依赖模块时的策略，则配置 resolve ；</li>
-<li>若想自定义解析和转换文件的策略，则配置 module，通常是配置 module 中 rules 里的 Loader；</li>
-<li>若其他大部分需求可能通过Plugin 去实现，则配置 Plugin。</li>
-</ol>
-<p>8、能否手写一个  ES6 的 class 语法用 ES5 的 prototype 实现？</p>
-<p>9、module 内 rules 中，多个 loader 存在时，默认加载的顺序是怎样的？ </p>
-<p>举例：</p>
-<pre><code>module: {  
-  rules: [  
-    {  
-      // 增加对 SCSS 文件的支持  
-      test: /\.scss/,  
-      // SCSS 文件的处理顺序为先 sass-loader 再 css-loader 再 style-loader  
-      use: [&apos;style-loader&apos;, &apos;css-loader&apos;, &apos;sass-loader&apos;],  
-    },  
-  ]  
-}  
-</code></pre><p>在一些特殊的 reles 内，可以通过 enforce 改变<br>enforce :’post’ 的含义是把该 Loader 的执行顺序放到最后<br>enforce 的值还可以是 pre，代表把 Loader 的执行顺序放到最前面</p>
-<p>10、 DefinePlugin 和 process.env 的使用 P92<br>将 DefinePlugin 的作用 ：可以在编译时期创建全局变量<br><a href="https://www.jianshu.com/p/887f0454ef96" target="_blank" rel="noopener">https://www.jianshu.com/p/887f0454ef96</a> </p>
-<p>将 Node 环境变量 process.env 在 webpack 中的应用<br><a href="https://blog.csdn.net/icewfz/article/details/76640319" target="_blank" rel="noopener">https://blog.csdn.net/icewfz/article/details/76640319</a> </p>
-<p>11 、试理解：<link rel="stylesheet" href="app?_inline"> 中 app?_inline ？<br>    app 表示 CSS 代码来自名称 app 的 Chunk 中；<br>    _inline 表示 上面的 Chunk 要被内嵌到这个标签所在的位置。</p>
-<p>你还能说去，其他的类似的属性吗？P94</p>
-<p>12、如何管理 单页面和多页面应用？</p>
-<p>单：<br>const { WebPlugin } = require(‘web-webpack-plugin’);<br>多：<br>const { AutoWebPlugin } = require(‘web-webpack-plugin’);  </p>
-<p>13、构建同构应用是否了解？<br>3-11 构建同构应用 P100 ， 这一节不经要，多看还要实践，很多地方可以实践，有利于打磨技能，大白话就是吹牛~~<br>这是网址：<a href="http://webpack.wuhaolin.cn/3%E5%AE%9E%E6%88%98/3-11%E6%9E%84%E5%BB%BA%E5%90%8C%E6%9E%84%E5%BA%94%E7%94%A8.html" target="_blank" rel="noopener">点击我</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/blog/2018/10/07/《深入浅出 Webpack》/" data-id="cjnrmnar3000c6wuq11cjd75a" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/blog/2018/10/07/possible/" data-id="cjnze1za600025cuqp1h8869m" class="article-share-link">分享</a>
       
       
       
@@ -710,7 +643,7 @@ module.exports = {
       
       
       
-            <a class="email" aria-hidden="true"  href="mailto:sunmengwork@foxmail.com" target="_blank" title="邮箱"></a>
+            <a class="email" aria-hidden="true" href="mailto:sunmengwork@foxmail.com" target="_blank" title="邮箱"></a>
       
     </div>
   </div>
@@ -723,7 +656,7 @@ module.exports = {
   <div class="widget-wrap">
     <h3 class="widget-title categories">分类</h3>
     <div class="widget" id="categories">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/JavaScript/">JavaScript</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/小记/">小记</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/视频学习/">视频学习</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/读书笔记/">读书笔记</a><span class="category-list-count">2</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/JavaScript/">JavaScript</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/小记/">小记</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/视频学习/">视频学习</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/读书笔记/">读书笔记</a><span class="category-list-count">2</span></li></ul>
     </div>
   </div>
 
@@ -736,7 +669,11 @@ module.exports = {
       <ul>
         
           <li>
-            <a href="/blog/2018/10/27/浏览器工作原理及在网页性能优化中的应用aeµ/">浏览器工作原理及在网页性能优化中的应用æµ</a>
+            <a href="/blog/2018/10/31/ReactFiber是什么/">ReactFiber是什么</a>
+          </li>
+        
+          <li>
+            <a href="/blog/2018/10/27/浏览器工作原理及在网页性能优化中的应用/">浏览器工作原理及在网页性能优化中的应用</a>
           </li>
         
           <li>
@@ -751,10 +688,6 @@ module.exports = {
             <a href="/blog/2018/10/17/推荐RESFulAPI/">推荐RESFulAPI</a>
           </li>
         
-          <li>
-            <a href="/blog/2018/10/16/hexo常规使用/">hexo常规使用</a>
-          </li>
-        
       </ul>
     </div>
   </div>
@@ -764,7 +697,7 @@ module.exports = {
   <div class="widget-wrap">
     <h3 class="widget-title archive">归档</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a><span class="archive-list-count">11</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a><span class="archive-list-count">1</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a><span class="archive-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -817,7 +750,7 @@ module.exports = {
     <a href="/archives" class="mobile-nav-link">归档</a>
   
 </nav>
-    <img class="back-to-top-btn" src="/images/fly-to-top.png"/>
+    <img class="back-to-top-btn" src="/images/fly-to-top.png">
 <script>
 // Elevator script included on the page, already.
 window.onload = function() {
