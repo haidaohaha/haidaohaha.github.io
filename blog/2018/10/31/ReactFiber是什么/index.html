@@ -5,18 +5,18 @@
   
   <title>ReactFiber是什么 | 许褚喂马</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="React Fiber 是什么先说，主要是为了解决什么问题？react 需要渲染界面时，会阻塞主线程直到渲染完成，如果渲染需要一点时间，并且这时候界面上有动画或者用户交互，就会出现卡顿情况。引入 Fiber 后，调度器会智能的管理帧，在不影响体验的情况下，分段计算更新。React 会每 16 ms（以内） 暂停一下更新，返回来继续渲染动画。 理论看着那啥，还是看例子直观：没有使用 fiber使用">
+  <meta name="description" content="先说，主要是为了解决什么问题？react 需要渲染界面时，会阻塞主线程直到渲染完成，如果渲染需要一点时间，并且这时候界面上有动画或者用户交互，就会出现卡顿情况。引入 Fiber 后，调度器会智能的管理帧，在不影响体验的情况下，分段计算更新。React 会每 16 ms（以内） 暂停一下更新，返回来继续渲染动画。 理论看着那啥，还是看例子直观：没有使用 fiber使用 fiber Fiber 本质上">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ReactFiber是什么">
 <meta property="og:url" content="http://yoursite.com/blog/2018/10/31/ReactFiber是什么/index.html">
 <meta property="og:site_name" content="许褚喂马">
-<meta property="og:description" content="React Fiber 是什么先说，主要是为了解决什么问题？react 需要渲染界面时，会阻塞主线程直到渲染完成，如果渲染需要一点时间，并且这时候界面上有动画或者用户交互，就会出现卡顿情况。引入 Fiber 后，调度器会智能的管理帧，在不影响体验的情况下，分段计算更新。React 会每 16 ms（以内） 暂停一下更新，返回来继续渲染动画。 理论看着那啥，还是看例子直观：没有使用 fiber使用">
+<meta property="og:description" content="先说，主要是为了解决什么问题？react 需要渲染界面时，会阻塞主线程直到渲染完成，如果渲染需要一点时间，并且这时候界面上有动画或者用户交互，就会出现卡顿情况。引入 Fiber 后，调度器会智能的管理帧，在不影响体验的情况下，分段计算更新。React 会每 16 ms（以内） 暂停一下更新，返回来继续渲染动画。 理论看着那啥，还是看例子直观：没有使用 fiber使用 fiber Fiber 本质上">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="http://yoursite.com/blog/2018/10/31/ReactFiber是什么/react16x生命周期图.jpg">
-<meta property="og:updated_time" content="2018-11-02T02:36:01.563Z">
+<meta property="og:updated_time" content="2018-11-02T03:05:05.317Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ReactFiber是什么">
-<meta name="twitter:description" content="React Fiber 是什么先说，主要是为了解决什么问题？react 需要渲染界面时，会阻塞主线程直到渲染完成，如果渲染需要一点时间，并且这时候界面上有动画或者用户交互，就会出现卡顿情况。引入 Fiber 后，调度器会智能的管理帧，在不影响体验的情况下，分段计算更新。React 会每 16 ms（以内） 暂停一下更新，返回来继续渲染动画。 理论看着那啥，还是看例子直观：没有使用 fiber使用">
+<meta name="twitter:description" content="先说，主要是为了解决什么问题？react 需要渲染界面时，会阻塞主线程直到渲染完成，如果渲染需要一点时间，并且这时候界面上有动画或者用户交互，就会出现卡顿情况。引入 Fiber 后，调度器会智能的管理帧，在不影响体验的情况下，分段计算更新。React 会每 16 ms（以内） 暂停一下更新，返回来继续渲染动画。 理论看着那啥，还是看例子直观：没有使用 fiber使用 fiber Fiber 本质上">
 <meta name="twitter:image" content="http://yoursite.com/blog/2018/10/31/ReactFiber是什么/react16x生命周期图.jpg">
   
   
@@ -92,7 +92,7 @@
       
         <!-- Table of Contents -->
         
-        <h1 id="React-Fiber-是什么"><a href="#React-Fiber-是什么" class="headerlink" title="React Fiber 是什么"></a>React Fiber 是什么</h1><h3 id="先说，主要是为了解决什么问题？"><a href="#先说，主要是为了解决什么问题？" class="headerlink" title="先说，主要是为了解决什么问题？"></a>先说，主要是为了解决什么问题？</h3><p>react 需要渲染界面时，会阻塞主线程直到渲染完成，如果渲染需要一点时间，并且这时候界面上有动画或者用户交互，就会出现卡顿情况。<br>引入 Fiber 后，调度器会智能的管理帧，在不影响体验的情况下，分段计算更新。<br>React 会每 16 ms（以内） 暂停一下更新，返回来继续渲染动画。</p>
+        <h3 id="先说，主要是为了解决什么问题？"><a href="#先说，主要是为了解决什么问题？" class="headerlink" title="先说，主要是为了解决什么问题？"></a>先说，主要是为了解决什么问题？</h3><p>react 需要渲染界面时，会阻塞主线程直到渲染完成，如果渲染需要一点时间，并且这时候界面上有动画或者用户交互，就会出现卡顿情况。<br>引入 Fiber 后，调度器会智能的管理帧，在不影响体验的情况下，分段计算更新。<br>React 会每 16 ms（以内） 暂停一下更新，返回来继续渲染动画。</p>
 <p>理论看着那啥，还是看例子直观：<br><a href="https://claudiopro.github.io/react-fiber-vs-stack-demo/stack.html" target="_blank" rel="noopener">没有使用 fiber</a><br><a href="https://claudiopro.github.io/react-fiber-vs-stack-demo/fiber.html" target="_blank" rel="noopener">使用 fiber</a></p>
 <p>Fiber 本质上是一个虚拟的堆栈帧，新的调度器会按照优先级自由调度这些帧，从而将之前的同步渲染改成了异步渲染，在不影响体验的情况下去分段计算更新。</p>
 <p><a href="https://zhuanlan.zhihu.com/p/26027085" target="_blank" rel="noopener">大佬程墨 Morgan 的理解</a></p>
@@ -110,7 +110,7 @@ reconciliation阶段可随时中止或恢复任务
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/blog/2018/10/31/ReactFiber是什么/" data-id="cjnzetikd000maguqagm52uqy" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/blog/2018/10/31/ReactFiber是什么/" data-id="cjnzfrsi4000mg8uqs8gurhsc" class="article-share-link">分享</a>
       
       
       
@@ -201,7 +201,7 @@ reconciliation阶段可随时中止或恢复任务
       
         <strong class="toc-title">文章目录</strong>
         <div class="toc-widget-list">
-              <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#React-Fiber-是什么"><span class="toc-number">1.</span> <span class="toc-text">React Fiber 是什么</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#先说，主要是为了解决什么问题？"><span class="toc-number">1.0.1.</span> <span class="toc-text">先说，主要是为了解决什么问题？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#雾蒙蒙…看过，不知所云…"><span class="toc-number">1.0.2.</span> <span class="toc-text">雾蒙蒙…看过，不知所云…</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Fiber-核心是实现了一个基于优先级和-requestIdleCallback-的循环任务调度算法。它包含以下特性：-参考：fiber-reconciler"><span class="toc-number">1.0.3.</span> <span class="toc-text">Fiber 核心是实现了一个基于优先级和 requestIdleCallback 的循环任务调度算法。它包含以下特性：(参考：fiber-reconciler)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Fiber-的影响"><span class="toc-number">1.0.4.</span> <span class="toc-text">Fiber 的影响</span></a></li></ol></li></ol>
+              <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#先说，主要是为了解决什么问题？"><span class="toc-number">1.</span> <span class="toc-text">先说，主要是为了解决什么问题？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#雾蒙蒙…看过，不知所云…"><span class="toc-number">2.</span> <span class="toc-text">雾蒙蒙…看过，不知所云…</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Fiber-核心是实现了一个基于优先级和-requestIdleCallback-的循环任务调度算法。它包含以下特性：-参考：fiber-reconciler"><span class="toc-number">3.</span> <span class="toc-text">Fiber 核心是实现了一个基于优先级和 requestIdleCallback 的循环任务调度算法。它包含以下特性：(参考：fiber-reconciler)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Fiber-的影响"><span class="toc-number">4.</span> <span class="toc-text">Fiber 的影响</span></a></li></ol>
           </div>
       </div>
     </div>
