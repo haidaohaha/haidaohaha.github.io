@@ -13,7 +13,7 @@
 <meta property="og:description" content="先说，主要是为了解决什么问题？react 需要渲染界面时，会阻塞主线程直到渲染完成，如果渲染需要一点时间，并且这时候界面上有动画或者用户交互，就会出现卡顿情况。引入 Fiber 后，调度器会智能的管理帧，在不影响体验的情况下，分段计算更新。React 会每 16 ms（以内） 暂停一下更新，返回来继续渲染动画。 理论看着那啥，还是看例子直观：没有使用 fiber使用 fiber Fiber 本质上">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="http://yoursite.com/blog/2018/10/31/ReactFiber是什么/react16x生命周期图.jpg">
-<meta property="og:updated_time" content="2018-11-02T03:05:05.317Z">
+<meta property="og:updated_time" content="2018-11-12T02:22:53.792Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ReactFiber是什么">
 <meta name="twitter:description" content="先说，主要是为了解决什么问题？react 需要渲染界面时，会阻塞主线程直到渲染完成，如果渲染需要一点时间，并且这时候界面上有动画或者用户交互，就会出现卡顿情况。引入 Fiber 后，调度器会智能的管理帧，在不影响体验的情况下，分段计算更新。React 会每 16 ms（以内） 暂停一下更新，返回来继续渲染动画。 理论看着那啥，还是看例子直观：没有使用 fiber使用 fiber Fiber 本质上">
@@ -96,21 +96,21 @@
 <p>理论看着那啥，还是看例子直观：<br><a href="https://claudiopro.github.io/react-fiber-vs-stack-demo/stack.html" target="_blank" rel="noopener">没有使用 fiber</a><br><a href="https://claudiopro.github.io/react-fiber-vs-stack-demo/fiber.html" target="_blank" rel="noopener">使用 fiber</a></p>
 <p>Fiber 本质上是一个虚拟的堆栈帧，新的调度器会按照优先级自由调度这些帧，从而将之前的同步渲染改成了异步渲染，在不影响体验的情况下去分段计算更新。</p>
 <p><a href="https://zhuanlan.zhihu.com/p/26027085" target="_blank" rel="noopener">大佬程墨 Morgan 的理解</a></p>
-<h3 id="雾蒙蒙…看过，不知所云…"><a href="#雾蒙蒙…看过，不知所云…" class="headerlink" title="雾蒙蒙…看过，不知所云…"></a>雾蒙蒙…看过，不知所云…</h3><p>这样说，React 实现可以分：reconciliation（diff 阶段）和 commit(操作 DOM 阶段)。<br>在 v16 之前，reconciliation 简单说自顶向下递归算法，递归的结果，对当前 DOM 进行更新或替换的操作列表，一旦开始，会持续占用主线程，中断操作却不容易实现。当 JS 长时间执行（如大量计算等），会阻塞样式计算（用户操作）、绘制（动画）等工作，出现页面脱帧现象。所以，v16 进行了一次重写，迎来了代号为 Fiber 的异步渲染架构。</p>
-<p>这样你是不是能理解，Fiber 想干嘛？ 细化 reconciliation （Facebook bie 了两年的大招）</p>
+<h3 id="雾蒙蒙…看过，不知所云…"><a href="#雾蒙蒙…看过，不知所云…" class="headerlink" title="雾蒙蒙…看过，不知所云…"></a>雾蒙蒙…看过，不知所云…</h3><p>这样说，React 实现可以分：reconciliation [,rɛkənsɪlɪ’eʃən]（diff 阶段）和 commit(操作 DOM 阶段)。<br>在 v16 之前，reconciliation 简单说自顶向下递归算法，递归的结果，对当前 DOM 进行更新或替换的操作列表，一旦开始，会持续占用主线程，中断操作却不容易实现。当 JS 长时间执行（如大量计算等），会阻塞样式计算（用户操作）、绘制（动画）等工作，出现页面脱帧现象。所以，v16 进行了一次重写，迎来了代号为 Fiber 的异步渲染架构。</p>
+<p>这样你是不是能理解，Fiber 想干嘛？ 细化 reconciliation （Facebook 优化了两年的大招）<br><a href="https://www.jianshu.com/p/bf824722b496" target="_blank" rel="noopener">这篇文章的比喻不错，学学学习方法</a></p>
 <h3 id="Fiber-核心是实现了一个基于优先级和-requestIdleCallback-的循环任务调度算法。它包含以下特性：-参考：fiber-reconciler"><a href="#Fiber-核心是实现了一个基于优先级和-requestIdleCallback-的循环任务调度算法。它包含以下特性：-参考：fiber-reconciler" class="headerlink" title="Fiber 核心是实现了一个基于优先级和 requestIdleCallback 的循环任务调度算法。它包含以下特性：(参考：fiber-reconciler)"></a>Fiber 核心是实现了一个基于优先级和 requestIdleCallback 的循环任务调度算法。它包含以下特性：(参考：fiber-reconciler)</h3><pre><code>reconciliation阶段可以把任务拆分成多个小任务
 reconciliation阶段可随时中止或恢复任务
 可以根据优先级不同来选择优先执行任务
 </code></pre><h3 id="Fiber-的影响"><a href="#Fiber-的影响" class="headerlink" title="Fiber 的影响"></a>Fiber 的影响</h3><p>本次改动，影响最大的是生命周期，为了性能和交互也是值得的。<br>以下什么生命周期在 v16 严格模式下会警告，在 v17 会废弃。<br> // reconciliation 阶段<br> componentWillMount<br> componentWillReceiveProps<br> shouldComponentUpdate<br> componentWillUpdate</p>
 <p>以下生命周期不变<br> // commit 阶段<br> componentDidMount<br> componentDidUpdate<br> componentWillUnmount</p>
 <p>以下新增生命周期<br> componentDidCatch(v16.0)<br> static getDerivedStateFromProps<br> getSnapshotBeforeUpdate</p>
-<p>改动建议，原先请求数据，放入 componentDidMount ，还好我是这么操作的。<br>组件通信，需要相互影响重新渲染时， getDerivedStateFromProps 代替 componentWillReceiveProps ，<br>最直观的是，观察 图标，一目了然。<br><a href="https://zhuanlan.zhihu.com/p/38030418" target="_blank" rel="noopener">大佬原文生命周期分析</a>  </p>
-<p><img src="/blog/2018/10/31/ReactFiber是什么/react16x生命周期图.jpg" alt="react最新生命周期图(20181102)">  </p>
+<p>改动建议，原先请求数据，放入 componentDidMount ，还好我是这么操作的。<br>组件通信，需要相互影响重新渲染时， getDerivedStateFromProps 代替 componentWillReceiveProps ，<br>最直观的是，观察 图标，一目了然。<br><a href="https://zhuanlan.zhihu.com/p/38030418" target="_blank" rel="noopener">大佬原文生命周期分析</a></p>
+<p><img src="/blog/2018/10/31/ReactFiber是什么/react16x生命周期图.jpg" alt="react最新生命周期图(20181102)"></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/blog/2018/10/31/ReactFiber是什么/" data-id="cjnzfrsi4000mg8uqs8gurhsc" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/blog/2018/10/31/ReactFiber是什么/" data-id="cjodopu4j000fe0uqhtadkmfx" class="article-share-link">分享</a>
       
       
       
@@ -161,6 +161,15 @@ reconciliation阶段可随时中止或恢复任务
 
     
 <nav id="article-nav">
+  
+    <a href="/blog/2018/11/06/阅读内存空间详细图解收获/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">上一篇</strong>
+      <div class="article-nav-title">
+        
+          阅读内存空间详细图解收获
+        
+      </div>
+    </a>
   
   
     <a href="/blog/2018/10/27/浏览器工作原理及在网页性能优化中的应用/" id="article-nav-older" class="article-nav-link-wrap">

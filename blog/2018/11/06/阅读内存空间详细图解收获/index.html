@@ -3,19 +3,19 @@
 <head><meta name="generator" content="Hexo 3.8.0">
   <meta charset="utf-8">
   
-  <title>hexo-blog | 许褚喂马</title>
+  <title>阅读内存空间详细图解收获 | 许褚喂马</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="blog 添加成功只是一个时间节点">
+  <meta name="description" content="需要我对三种数据结构有一个直观的认知。他们分别是堆(heap)，栈(stack)与队列(queue)。 堆数据结构一句话：树状结构，数据存取方式，像图书馆的书架。只关心书的名称即 Key。 栈数据结构一句话：数据结构类似羽毛球盒子，先进后出，后进先出（别拆开了哈）。 队列数据结构一句话：你想理解，Event Loop 吗？（macro（宏任务）队列和 micro（微任务）队列），理解 先进先出 内">
 <meta property="og:type" content="article">
-<meta property="og:title" content="hexo-blog">
-<meta property="og:url" content="http://yoursite.com/blog/2018/08/01/hexo-blog/index.html">
+<meta property="og:title" content="阅读内存空间详细图解收获">
+<meta property="og:url" content="http://yoursite.com/blog/2018/11/06/阅读内存空间详细图解收获/index.html">
 <meta property="og:site_name" content="许褚喂马">
-<meta property="og:description" content="blog 添加成功只是一个时间节点">
+<meta property="og:description" content="需要我对三种数据结构有一个直观的认知。他们分别是堆(heap)，栈(stack)与队列(queue)。 堆数据结构一句话：树状结构，数据存取方式，像图书馆的书架。只关心书的名称即 Key。 栈数据结构一句话：数据结构类似羽毛球盒子，先进后出，后进先出（别拆开了哈）。 队列数据结构一句话：你想理解，Event Loop 吗？（macro（宏任务）队列和 micro（微任务）队列），理解 先进先出 内">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-10-07T13:49:50.449Z">
+<meta property="og:updated_time" content="2018-11-12T01:58:01.606Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="hexo-blog">
-<meta name="twitter:description" content="blog 添加成功只是一个时间节点">
+<meta name="twitter:title" content="阅读内存空间详细图解收获">
+<meta name="twitter:description" content="需要我对三种数据结构有一个直观的认知。他们分别是堆(heap)，栈(stack)与队列(queue)。 堆数据结构一句话：树状结构，数据存取方式，像图书馆的书架。只关心书的名称即 Key。 栈数据结构一句话：数据结构类似羽毛球盒子，先进后出，后进先出（别拆开了哈）。 队列数据结构一句话：你想理解，Event Loop 吗？（macro（宏任务）队列和 micro（微任务）队列），理解 先进先出 内">
   
   
     <link rel="icon" href="/favicon.png">
@@ -62,12 +62,16 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-hexo-blog" class="article article-type-post" itemscope="" itemprop="blogPost">
+        <section id="main"><article id="post-阅读内存空间详细图解收获" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
-    <a href="/blog/2018/08/01/hexo-blog/" class="article-date">
-  <time datetime="2018-08-01T01:49:36.000Z" itemprop="datePublished">2018-08-01</time>
+    <a href="/blog/2018/11/06/阅读内存空间详细图解收获/" class="article-date">
+  <time datetime="2018-11-06T01:10:49.000Z" itemprop="datePublished">2018-11-06</time>
 </a>
     
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/读书笔记/">读书笔记</a>
+  </div>
+
   </div>
   <div class="article-inner">
     
@@ -76,7 +80,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      hexo-blog
+      阅读内存空间详细图解收获
     </h1>
   
 
@@ -86,11 +90,17 @@
       
         <!-- Table of Contents -->
         
-        <h4 id="blog-添加成功"><a href="#blog-添加成功" class="headerlink" title="blog 添加成功"></a>blog 添加成功</h4><h4 id="只是一个时间节点"><a href="#只是一个时间节点" class="headerlink" title="只是一个时间节点"></a>只是一个时间节点</h4>
+        <p>需要我对三种数据结构有一个直观的认知。他们分别是堆(heap)，栈(stack)与队列(queue)。</p>
+<h3 id="堆数据结构"><a href="#堆数据结构" class="headerlink" title="堆数据结构"></a>堆数据结构</h3><p>一句话：树状结构，数据存取方式，像图书馆的书架。只关心书的名称即 Key。</p>
+<h3 id="栈数据结构"><a href="#栈数据结构" class="headerlink" title="栈数据结构"></a>栈数据结构</h3><p>一句话：数据结构类似羽毛球盒子，先进后出，后进先出（别拆开了哈）。</p>
+<h3 id="队列数据结构"><a href="#队列数据结构" class="headerlink" title="队列数据结构"></a>队列数据结构</h3><p>一句话：你想理解，Event Loop 吗？（macro（宏任务）队列和 micro（微任务）队列），理解 先进先出</p>
+<h3 id="内存的管理"><a href="#内存的管理" class="headerlink" title="内存的管理"></a>内存的管理</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var a = 20;  // 在内存中给数值变量分配空间</span><br><span class="line">alert(a + 100);  // 使用内存</span><br><span class="line">a = null; // 使用完毕之后，释放内存空间</span><br></pre></td></tr></table></figure>
+<p>没理解，a = null ,作者给出的解释，第三步，让 a 原本对应的值失去引用，脱离执行环境。</p>
+
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/blog/2018/08/01/hexo-blog/" data-id="cjodoptzc0001e0uq2r4d3i6k" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/blog/2018/11/06/阅读内存空间详细图解收获/" data-id="cjodopu4m000ie0uqo2mm8hsk" class="article-share-link">分享</a>
       
       
       
@@ -142,15 +152,11 @@
     
 <nav id="article-nav">
   
-    <a href="/blog/2018/10/07/demo/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">上一篇</strong>
-      <div class="article-nav-title">
-        
-          test new
-        
-      </div>
-    </a>
   
+    <a href="/blog/2018/10/31/ReactFiber是什么/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">ReactFiber是什么</div>
+    </a>
   
 </nav>
 
@@ -185,7 +191,7 @@
       
         <strong class="toc-title">文章目录</strong>
         <div class="toc-widget-list">
-              <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#blog-添加成功"><span class="toc-number">1.</span> <span class="toc-text">blog 添加成功</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#只是一个时间节点"><span class="toc-number">2.</span> <span class="toc-text">只是一个时间节点</span></a></li></ol>
+              <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#堆数据结构"><span class="toc-number">1.</span> <span class="toc-text">堆数据结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#栈数据结构"><span class="toc-number">2.</span> <span class="toc-text">栈数据结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#队列数据结构"><span class="toc-number">3.</span> <span class="toc-text">队列数据结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#内存的管理"><span class="toc-number">4.</span> <span class="toc-text">内存的管理</span></a></li></ol>
           </div>
       </div>
     </div>

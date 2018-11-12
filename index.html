@@ -60,6 +60,56 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-阅读内存空间详细图解收获" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/blog/2018/11/06/阅读内存空间详细图解收获/" class="article-date">
+  <time datetime="2018-11-06T01:10:49.000Z" itemprop="datePublished">2018-11-06</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/读书笔记/">读书笔记</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/blog/2018/11/06/阅读内存空间详细图解收获/">阅读内存空间详细图解收获</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- Table of Contents -->
+        
+        <p>需要我对三种数据结构有一个直观的认知。他们分别是堆(heap)，栈(stack)与队列(queue)。</p>
+<h3 id="堆数据结构"><a href="#堆数据结构" class="headerlink" title="堆数据结构"></a>堆数据结构</h3><p>一句话：树状结构，数据存取方式，像图书馆的书架。只关心书的名称即 Key。</p>
+<h3 id="栈数据结构"><a href="#栈数据结构" class="headerlink" title="栈数据结构"></a>栈数据结构</h3><p>一句话：数据结构类似羽毛球盒子，先进后出，后进先出（别拆开了哈）。</p>
+<h3 id="队列数据结构"><a href="#队列数据结构" class="headerlink" title="队列数据结构"></a>队列数据结构</h3><p>一句话：你想理解，Event Loop 吗？（macro（宏任务）队列和 micro（微任务）队列），理解 先进先出</p>
+<h3 id="内存的管理"><a href="#内存的管理" class="headerlink" title="内存的管理"></a>内存的管理</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var a = 20;  // 在内存中给数值变量分配空间</span><br><span class="line">alert(a + 100);  // 使用内存</span><br><span class="line">a = null; // 使用完毕之后，释放内存空间</span><br></pre></td></tr></table></figure>
+<p>没理解，a = null ,作者给出的解释，第三步，让 a 原本对应的值失去引用，脱离执行环境。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/blog/2018/11/06/阅读内存空间详细图解收获/" data-id="cjodopu4m000ie0uqo2mm8hsk" class="article-share-link">分享</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+ 
+
+
+  
     <article id="react-ReactFiber是什么" class="article article-type-react" itemscope="" itemprop="blogPost">
   <div class="article-meta">
     <a href="/blog/2018/10/31/ReactFiber是什么/" class="article-date">
@@ -92,21 +142,21 @@
 <p>理论看着那啥，还是看例子直观：<br><a href="https://claudiopro.github.io/react-fiber-vs-stack-demo/stack.html" target="_blank" rel="noopener">没有使用 fiber</a><br><a href="https://claudiopro.github.io/react-fiber-vs-stack-demo/fiber.html" target="_blank" rel="noopener">使用 fiber</a></p>
 <p>Fiber 本质上是一个虚拟的堆栈帧，新的调度器会按照优先级自由调度这些帧，从而将之前的同步渲染改成了异步渲染，在不影响体验的情况下去分段计算更新。</p>
 <p><a href="https://zhuanlan.zhihu.com/p/26027085" target="_blank" rel="noopener">大佬程墨 Morgan 的理解</a></p>
-<h3 id="雾蒙蒙…看过，不知所云…"><a href="#雾蒙蒙…看过，不知所云…" class="headerlink" title="雾蒙蒙…看过，不知所云…"></a>雾蒙蒙…看过，不知所云…</h3><p>这样说，React 实现可以分：reconciliation（diff 阶段）和 commit(操作 DOM 阶段)。<br>在 v16 之前，reconciliation 简单说自顶向下递归算法，递归的结果，对当前 DOM 进行更新或替换的操作列表，一旦开始，会持续占用主线程，中断操作却不容易实现。当 JS 长时间执行（如大量计算等），会阻塞样式计算（用户操作）、绘制（动画）等工作，出现页面脱帧现象。所以，v16 进行了一次重写，迎来了代号为 Fiber 的异步渲染架构。</p>
-<p>这样你是不是能理解，Fiber 想干嘛？ 细化 reconciliation （Facebook bie 了两年的大招）</p>
+<h3 id="雾蒙蒙…看过，不知所云…"><a href="#雾蒙蒙…看过，不知所云…" class="headerlink" title="雾蒙蒙…看过，不知所云…"></a>雾蒙蒙…看过，不知所云…</h3><p>这样说，React 实现可以分：reconciliation [,rɛkənsɪlɪ’eʃən]（diff 阶段）和 commit(操作 DOM 阶段)。<br>在 v16 之前，reconciliation 简单说自顶向下递归算法，递归的结果，对当前 DOM 进行更新或替换的操作列表，一旦开始，会持续占用主线程，中断操作却不容易实现。当 JS 长时间执行（如大量计算等），会阻塞样式计算（用户操作）、绘制（动画）等工作，出现页面脱帧现象。所以，v16 进行了一次重写，迎来了代号为 Fiber 的异步渲染架构。</p>
+<p>这样你是不是能理解，Fiber 想干嘛？ 细化 reconciliation （Facebook 优化了两年的大招）<br><a href="https://www.jianshu.com/p/bf824722b496" target="_blank" rel="noopener">这篇文章的比喻不错，学学学习方法</a></p>
 <h3 id="Fiber-核心是实现了一个基于优先级和-requestIdleCallback-的循环任务调度算法。它包含以下特性：-参考：fiber-reconciler"><a href="#Fiber-核心是实现了一个基于优先级和-requestIdleCallback-的循环任务调度算法。它包含以下特性：-参考：fiber-reconciler" class="headerlink" title="Fiber 核心是实现了一个基于优先级和 requestIdleCallback 的循环任务调度算法。它包含以下特性：(参考：fiber-reconciler)"></a>Fiber 核心是实现了一个基于优先级和 requestIdleCallback 的循环任务调度算法。它包含以下特性：(参考：fiber-reconciler)</h3><pre><code>reconciliation阶段可以把任务拆分成多个小任务
 reconciliation阶段可随时中止或恢复任务
 可以根据优先级不同来选择优先执行任务
 </code></pre><h3 id="Fiber-的影响"><a href="#Fiber-的影响" class="headerlink" title="Fiber 的影响"></a>Fiber 的影响</h3><p>本次改动，影响最大的是生命周期，为了性能和交互也是值得的。<br>以下什么生命周期在 v16 严格模式下会警告，在 v17 会废弃。<br> // reconciliation 阶段<br> componentWillMount<br> componentWillReceiveProps<br> shouldComponentUpdate<br> componentWillUpdate</p>
 <p>以下生命周期不变<br> // commit 阶段<br> componentDidMount<br> componentDidUpdate<br> componentWillUnmount</p>
 <p>以下新增生命周期<br> componentDidCatch(v16.0)<br> static getDerivedStateFromProps<br> getSnapshotBeforeUpdate</p>
-<p>改动建议，原先请求数据，放入 componentDidMount ，还好我是这么操作的。<br>组件通信，需要相互影响重新渲染时， getDerivedStateFromProps 代替 componentWillReceiveProps ，<br>最直观的是，观察 图标，一目了然。<br><a href="https://zhuanlan.zhihu.com/p/38030418" target="_blank" rel="noopener">大佬原文生命周期分析</a>  </p>
-<p><img src="/blog/2018/10/31/ReactFiber是什么/react16x生命周期图.jpg" alt="react最新生命周期图(20181102)">  </p>
+<p>改动建议，原先请求数据，放入 componentDidMount ，还好我是这么操作的。<br>组件通信，需要相互影响重新渲染时， getDerivedStateFromProps 代替 componentWillReceiveProps ，<br>最直观的是，观察 图标，一目了然。<br><a href="https://zhuanlan.zhihu.com/p/38030418" target="_blank" rel="noopener">大佬原文生命周期分析</a></p>
+<p><img src="/blog/2018/10/31/ReactFiber是什么/react16x生命周期图.jpg" alt="react最新生命周期图(20181102)"></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/blog/2018/10/31/ReactFiber是什么/" data-id="cjnzfrsi4000mg8uqs8gurhsc" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/blog/2018/10/31/ReactFiber是什么/" data-id="cjodopu4j000fe0uqhtadkmfx" class="article-share-link">分享</a>
       
       
       
@@ -146,87 +196,87 @@ reconciliation阶段可随时中止或恢复任务
       
         <!-- Table of Contents -->
         
-        <p>内容简介<br>主要都是围绕着浏览器展开的，<br>了解浏览器工作原理不仅有助于编写性能更好的代码，<br>还有助于排查和解决更加底层的“疑难杂症”。  </p>
+        <p>内容简介<br>主要都是围绕着浏览器展开的，<br>了解浏览器工作原理不仅有助于编写性能更好的代码，<br>还有助于排查和解决更加底层的“疑难杂症”。</p>
 <p>主要内容有：</p>
 <ol>
-<li>浏览器主要模块介绍   </li>
-<li>浏览器基本工作原理   </li>
-<li>浏览器的重排和重绘   </li>
-<li>JavaScript对浏览器工作的影响   </li>
-<li>Chrome 开发者工具中 Performance 的用法   </li>
-<li>利用多组实例分析页面加载、解析、执行机制   </li>
-<li>性能优化建议   </li>
+<li>浏览器主要模块介绍</li>
+<li>浏览器基本工作原理</li>
+<li>浏览器的重排和重绘</li>
+<li>JavaScript 对浏览器工作的影响</li>
+<li>Chrome 开发者工具中 Performance 的用法</li>
+<li>利用多组实例分析页面加载、解析、执行机制</li>
+<li>性能优化建议</li>
 </ol>
-<p>如果你觉得，有用你可以参照视频，仔细学习，效果更好。<br>浏览器工作原理及在网页性能优化中的应用<br><a href="https://segmentfault.com/l/1500000015237807?r=bPrNrd" target="_blank" rel="noopener">https://segmentfault.com/l/1500000015237807?r=bPrNrd</a>   </p>
-<p>浏览器主要模块介绍<br><a href="https://github.com/xuchaobei/examples" target="_blank" rel="noopener">演示用例</a><br>（请使用chrome 浏览器，无痕模式，进行验证实验）  </p>
-<p>浏览器的组成<br><a href="https://www.cnblogs.com/wjlog/p/5744753.html" target="_blank" rel="noopener">翻译的很好</a>    </p>
+<p>如果你觉得，有用你可以参照视频，仔细学习，效果更好。<br>浏览器工作原理及在网页性能优化中的应用<br><a href="https://segmentfault.com/l/1500000015237807?r=bPrNrd" target="_blank" rel="noopener">https://segmentfault.com/l/1500000015237807?r=bPrNrd</a></p>
+<p>浏览器主要模块介绍<br><a href="https://github.com/xuchaobei/examples" target="_blank" rel="noopener">演示用例</a><br>（请使用 chrome 浏览器，无痕模式，进行验证实验）</p>
+<p>浏览器的组成<br><a href="https://www.cnblogs.com/wjlog/p/5744753.html" target="_blank" rel="noopener">翻译的很好</a></p>
 <p>大纲</p>
-<p>·    浏览器主要模块<br>·    浏览器工作基本流程<br>·    Javascript的影响<br>·    实例分析和优化建议</p>
+<p>· 浏览器主要模块<br>· 浏览器工作基本流程<br>· Javascript 的影响<br>· 实例分析和优化建议</p>
 <p><img src="/blog/2018/10/27/浏览器工作原理及在网页性能优化中的应用/浏览器的组成.jpg" alt="浏览器的组成"></p>
 <p>浏览器的组成</p>
-<p>名词解释：<br>1、user interface ：用户界面<br>2、browser engine ：浏览器引擎<br>3、rendering engine ：渲染 引擎<br>4、networking 网络化 ：[计] 网络系统<br>5、JavaScript Interpreter ：JS 解释器<br>6、UI backend ：UI Backend<br>7、data persistence ：数据 存留   </p>
+<p>名词解释：<br>1、user interface ：用户界面<br>2、browser engine ：浏览器引擎<br>3、rendering engine ：渲染 引擎<br>4、networking 网络化 ：[计] 网络系统<br>5、JavaScript Interpreter ：JS 解释器<br>6、UI backend ：UI Backend<br>7、data persistence ：数据 存留</p>
 <ol>
-<li>用户界面 － 包括地址栏、后退/前进按钮、书签目录等，也就是你所看到的除了用来显示你所请求页面的主窗口之外的其他部分。  </li>
-<li>浏览器引擎 － 用来查询及操作渲染引擎的接口。  </li>
-<li>渲染引擎 － 用来显示请求的内容，例如，如果请求内容为html，它负责解析html及css，并将解析后的结果显示出来。  </li>
-<li>网络 － 用来完成网络调用，例如http请求，它具有平台无关的接口，可以在不同平台上工作。  </li>
-<li>JS解释器 － 用来解释执行JS代码。  </li>
-<li>UI后端 － 用来绘制类似组合选择框及对话框等基本组件，具有不特定于某个平台的通用接口，底层使用操作系统的用户接口。  　　</li>
-<li>数据存储 － 属于持久层，浏览器需要在硬盘中保存类似cookie的各种数据，HTML5定义了web database技术，这是一种轻量级完整的客户端存储技术。  </li>
+<li>用户界面 － 包括地址栏、后退/前进按钮、书签目录等，也就是你所看到的除了用来显示你所请求页面的主窗口之外的其他部分。</li>
+<li>浏览器引擎 － 用来查询及操作渲染引擎的接口。</li>
+<li>渲染引擎 － 用来显示请求的内容，例如，如果请求内容为 html，它负责解析 html 及 css，并将解析后的结果显示出来。</li>
+<li>网络 － 用来完成网络调用，例如 http 请求，它具有平台无关的接口，可以在不同平台上工作。</li>
+<li>JS 解释器 － 用来解释执行 JS 代码。</li>
+<li>UI 后端 － 用来绘制类似组合选择框及对话框等基本组件，具有不特定于某个平台的通用接口，底层使用操作系统的用户接口。</li>
+<li>数据存储 － 属于持久层，浏览器需要在硬盘中保存类似 cookie 的各种数据，HTML5 定义了 web database 技术，这是一种轻量级完整的客户端存储技术。</li>
 </ol>
-<p>本课程，重点：<br>渲染引擎（Rendering Engine）<br>·    职责：解析HTML和CSS，将Web 页面渲染到浏览器的屏幕上<br>·    分类：Webkit(Safari)，Blink(Chrome), Gecko(FireFox) 美 [‘gɛko]</p>
-<p>JavaScript引擎（JavaScript Interpreter）<br>·    职责：解析和执行JavaScript<br>·    分类：JavaScriptCore（Safari），V8(Chrome), SpiderMonkey(FireFox)</p>
+<p>本课程，重点：<br>渲染引擎（Rendering Engine）<br>· 职责：解析 HTML 和 CSS，将 Web 页面渲染到浏览器的屏幕上<br>· 分类：Webkit(Safari)，Blink(Chrome), Gecko(FireFox) 美 [‘gɛko]</p>
+<p>JavaScript 引擎（JavaScript Interpreter）<br>· 职责：解析和执行 JavaScript<br>· 分类：JavaScriptCore（Safari），V8(Chrome), SpiderMonkey(FireFox)</p>
 <p>先抛出问题：</p>
-<p>（HTML 如何显示到浏览器上（元素都是像素点构成））<br>浏览器工作基本流程<br>1、    解析HTML、构建DOM树；解析CSS、构建CSSOM（CSS对象模型）<br>2、    根据DOM和CSSOM，构建渲染树（Render tree）；<br>3、    根据渲染树，计算每个节点在屏幕上的位置、尺寸等信息；<br>4、    将渲染树绘制到屏幕上；</p>
-<p>Webkit主流程</p>
+<p>（HTML 如何显示到浏览器上（元素都是像素点构成））<br>浏览器工作基本流程<br>1、 解析 HTML、构建 DOM 树；解析 CSS、构建 CSSOM（CSS 对象模型）<br>2、 根据 DOM 和 CSSOM，构建渲染树（Render tree）；<br>3、 根据渲染树，计算每个节点在屏幕上的位置、尺寸等信息；<br>4、 将渲染树绘制到屏幕上；</p>
+<p>Webkit 主流程</p>
 <p>Attachment：糅合吗？（调和）<br>Painting：绘制</p>
 <p>上图简化为下图：</p>
 <p>Characters：文法/描述 （html 的语义化）<br>Tokenizer：词法分析 （能让浏览器理解的单词）<br>Tree Construction：语法分析</p>
-<p>这是mac 的工具吗？</p>
-<p>CSSOM视图模式</p>
+<p>这是 mac 的工具吗？</p>
+<p>CSSOM 视图模式</p>
 <p>要求，你能解释，DOM 中的 head 和 p ，并没有在 Render Tree 中没有显示，why?<br>如果，CSSOM 中 p 的显示，由 display none ，改变为 visibility</p>
-<p>重排/回流（reflow）<br>重绘（repaint）<br>·    JS行为<br>1、    修改DOM<br>2、    修改CSS<br>·    用户行为<br>3、    滚动页面<br>4、    改变浏览器窗口大小<br>5、    输入框中输入内容<br>6、    触发：hover 等CSS效果</p>
+<p>重排/回流（reflow）<br>重绘（repaint）<br>· JS 行为<br>1、 修改 DOM<br>2、 修改 CSS<br>· 用户行为<br>3、 滚动页面<br>4、 改变浏览器窗口大小<br>5、 输入框中输入内容<br>6、 触发：hover 等 CSS 效果</p>
 <p>若：用户改变背景色，只会重绘并不重排，如果滚动、鼠标、视口大小变化，这就是全部都有。<br>题目：会触发几次重绘和重排呢？</p>
 <p>代码 1 ：</p>
-<p>let foo = document.getElementById(‘foobar’);<br>foo.style.color = ‘blue’;<br>foo.style.marginTop = ‘30px’;<br>代码1，咋一看是，颜色改变了一次重绘，外边距变了这样肯定会重排，那也预示着肯定会重绘。不过浏览器比较，智能不会操作，会把属性改变，放入渲染队列中，最终呈现 ：一次重排一次重绘。</p>
+<p>let foo = document.getElementById(‘foobar’);<br>foo.style.color = ‘blue’;<br>foo.style.marginTop = ‘30px’;<br>代码 1，咋一看是，颜色改变了一次重绘，外边距变了这样肯定会重排，那也预示着肯定会重绘。不过浏览器比较，智能不会操作，会把属性改变，放入渲染队列中，最终呈现 ：一次重排一次重绘。</p>
 <p>代码 2 ：</p>
 <p>let foo = document.getElementById(‘foobar’);<br>foo.style.color = ‘blue’;<br>let margin = parseInt(foo.style.marginTop);<br>foo.style.marginTop = (margin + 10) + ‘px’;</p>
 <p>会触发几次重绘和重排呢？</p>
-<p>注意：代码2，颜色属性更改后，此时节点被标记为‘脏’节点，获取脏节点的属性会导致，队列中的更新操作立刻执行。<br>let margin = parseInt(foo.style.marginTop);<br>会立刻 重绘背景的颜色<br>不理解 ： foo.style.marginTop = (margin + 10) + ‘px’; // 怎么导致 1次 重排和1次 重绘的？？？<br>一看就是没有，理解重排肯定会导致重绘原则。<br>回流必定会发生重绘，重绘不一定会引发回流。回流所需的成本比重绘高的多，改变深层次的节点很可能导致父节点的一系列回流。</p>
-<p>老师给的答案：<br>代码1：1次重排和重绘；  代码2：1次重绘+1次重排和重绘。<br>当修改一个DOM 节点时，修改的操作会先缓存到队列，队列中的修改会在下一次的UI线程执行时，批量更新。<br>例外：修改过的节点会被标记为“脏”（Dirty）节点，获取脏节点的属性，会导致队列中的更新操作，立即执行。</p>
-<p>常见优化方案<br>1、    避免对同一个DOM节点的读和写操作交叉进行；<br>2、    在DOM树外部操作DOM，使用document fragment（DOM片段比如：一段div 内部还有其他好多元素）<br>3、    使用position为absolute或fixed的元素创建动画（言外之意是新建图层，因为脱离文档流，不在一个图层操作，性能要好，但是图层不能太多。）<br>4、    window.requestAnimationFrame()<br>5、    虚拟DOM库</p>
+<p>注意：代码 2，颜色属性更改后，此时节点被标记为‘脏’节点，获取脏节点的属性会导致，队列中的更新操作立刻执行。<br>let margin = parseInt(foo.style.marginTop);<br>会立刻 重绘背景的颜色<br>不理解 ： foo.style.marginTop = (margin + 10) + ‘px’; // 怎么导致 1 次 重排和 1 次 重绘的？？？<br>一看就是没有，理解重排肯定会导致重绘原则。<br>回流必定会发生重绘，重绘不一定会引发回流。回流所需的成本比重绘高的多，改变深层次的节点很可能导致父节点的一系列回流。</p>
+<p>老师给的答案：<br>代码 1：1 次重排和重绘； 代码 2：1 次重绘+1 次重排和重绘。<br>当修改一个 DOM 节点时，修改的操作会先缓存到队列，队列中的修改会在下一次的 UI 线程执行时，批量更新。<br>例外：修改过的节点会被标记为“脏”（Dirty）节点，获取脏节点的属性，会导致队列中的更新操作，立即执行。</p>
+<p>常见优化方案<br>1、 避免对同一个 DOM 节点的读和写操作交叉进行；<br>2、 在 DOM 树外部操作 DOM，使用 document fragment（DOM 片段比如：一段 div 内部还有其他好多元素）<br>3、 使用 position 为 absolute 或 fixed 的元素创建动画（言外之意是新建图层，因为脱离文档流，不在一个图层操作，性能要好，但是图层不能太多。）<br>4、 window.requestAnimationFrame()<br>5、 虚拟 DOM 库</p>
 <p>注：window.requestAnimationFrame() 方法告诉浏览器您希望执行动画并请求浏览器在下一次重绘之前调用指定的函数来更新动画。该方法使用一个回调函数作为参数，这个回调函数会在浏览器重绘之前调用。</p>
 <p>实例分析和优化建议</p>
 <p>Javascript 对浏览器的影响</p>
-<p>开始之前，装一个依赖，开启本地服务，老师提供的 serve 不支持window系统。<br>npm install http-server -g</p>
-<p>http-server </p>
-<p>可惜了，我虽然可以，跟着老师的操作，完成这个实验，但怎么描述昵！！！<br>截图吗？<br>首先你在，对应的文件夹，这样操作 http-server 图一，那么Ctrl + 点击 你就能打开图二。最终你就能看到图三，和老师的无差别（注意清除缓存），仔细结合结论查看。<br>图一：</p>
+<p>开始之前，装一个依赖，开启本地服务，老师提供的 serve 不支持 window 系统。<br>npm install http-server -g</p>
+<p>http-server</p>
+<p>可惜了，我虽然可以，跟着老师的操作，完成这个实验，但怎么描述昵！！！<br>截图吗？<br>首先你在，对应的文件夹，这样操作 http-server 图一，那么 Ctrl + 点击 你就能打开图二。最终你就能看到图三，和老师的无差别（注意清除缓存），仔细结合结论查看。<br>图一：</p>
 <p>图二：</p>
 <p>图三：（一定要清除缓存）</p>
 <p>先后点击，下面的案例，观察 性能。（注意清除缓存）</p>
 <p>js-external-in-head-2.html<br>js-internal.html<br>js-external-in-head-1.html<br>js-external-in-head-3.html</p>
-<p>结论：<br>1、    外链JS和内嵌JS，都会阻塞HTML解析。<br>2、    JS 代码执行顺序和 JS 在HTML中的位置顺序 一致。<br>3、    浏览器解析到script 标签时，如果 script内部JS 已知（内嵌 JS或者 外链 JS 已加载完成），就会立即解析和执行JS。</p>
+<p>结论：<br>1、 外链 JS 和内嵌 JS，都会阻塞 HTML 解析。<br>2、 JS 代码执行顺序和 JS 在 HTML 中的位置顺序 一致。<br>3、 浏览器解析到 script 标签时，如果 script 内部 JS 已知（内嵌 JS 或者 外链 JS 已加载完成），就会立即解析和执行 JS。</p>
 <p>CSS 间接阻塞解析<br>先后点击，下面的案例，观察 性能。（注意清除缓存）</p>
 <p>css-blocking-js.html<br>css-external.html<br>css-internal.html</p>
-<p>结论：<br>1、    外链CSS 和 内嵌 CSS，都不会阻塞解析。<br>2、    当解析到JS 时，如果前面的还存在没有解析完成的CSS ，则当前 JS解析会被阻塞，直到前面的所有的CSS 都完成解析，这种情况下，会造成 CSS间接阻塞HTML 解析的问题。</p>
+<p>结论：<br>1、 外链 CSS 和 内嵌 CSS，都不会阻塞解析。<br>2、 当解析到 JS 时，如果前面的还存在没有解析完成的 CSS ，则当前 JS 解析会被阻塞，直到前面的所有的 CSS 都完成解析，这种情况下，会造成 CSS 间接阻塞 HTML 解析的问题。</p>
 <p>JS 不阻塞解析 （Async 和 Defer）</p>
 <p>Async VS Defer<br>先后点击，下面的案例，观察 性能。（注意清除缓存）</p>
 <p>js-async.html<br>js-defer.html</p>
 <p>动态脚本插入</p>
 <p>js-dynamic-sync.html<br>js-dynamic.html</p>
-<p>结论：<br>1、    Async 和 defer 可以在不阻塞 HTML 解析的情况下，加载外链 JS。Async 在JS文件下载完成后立即执行JS ， defer 则在将 JS 的执行，推迟到，HTML 解析完成后。<br>2、    JS 动态插入的外链脚本，其特性等同于 Async ，此时，如果要保证 JS 执行的顺序，需要设置插入script 的 async = false 。</p>
+<p>结论：<br>1、 Async 和 defer 可以在不阻塞 HTML 解析的情况下，加载外链 JS。Async 在 JS 文件下载完成后立即执行 JS ， defer 则在将 JS 的执行，推迟到，HTML 解析完成后。<br>2、 JS 动态插入的外链脚本，其特性等同于 Async ，此时，如果要保证 JS 执行的顺序，需要设置插入 script 的 async = false 。</p>
 <p>JS 放在 body 底部问题<br>首屏绘制时间（First Meaningful Paint）<br>先后点击，下面的案例，观察 性能。（注意清除缓存）</p>
 <p>js-external-in-body-1.html<br>js-external-in-body-2.html<br>js-external-in-body-3.html</p>
 <p>结论：</p>
-<p>1、    首次绘制的时间和 DOMContentLoaded 、 onLoader 事件发生的时间没有直接的关系。<br>2、    body内的外链 JS 可能会触发 浏览器 立即进行首次绘制。</p>
+<p>1、 首次绘制的时间和 DOMContentLoaded 、 onLoader 事件发生的时间没有直接的关系。<br>2、 body 内的外链 JS 可能会触发 浏览器 立即进行首次绘制。</p>
 <p>优化建议：</p>
-<p>1、    CSS 放在head中，减小CSS文件大小，可以考虑直接将首屏依赖的关键CSS内嵌到HTML中，然后异步加载其他次要的CSS。<br>2、    对于不依赖DOM 的JS文件，设置async 和 defer 属性进行异步加载（需要注意JS执行问题）。<br>3、    当JS 必须放到 body 内时，将JS 放到body底部，保证首屏绘制时可以呈现页面的骨架内容，减少用户的白屏感知时间。</p>
-<p>如果你觉得，有用你可以参照视频，仔细学习，效果更好。<br>浏览器工作原理及在网页性能优化中的应用<br><a href="https://segmentfault.com/l/1500000015237807?r=bPrNrd" target="_blank" rel="noopener">https://segmentfault.com/l/1500000015237807?r=bPrNrd</a> </p>
+<p>1、 CSS 放在 head 中，减小 CSS 文件大小，可以考虑直接将首屏依赖的关键 CSS 内嵌到 HTML 中，然后异步加载其他次要的 CSS。<br>2、 对于不依赖 DOM 的 JS 文件，设置 async 和 defer 属性进行异步加载（需要注意 JS 执行问题）。<br>3、 当 JS 必须放到 body 内时，将 JS 放到 body 底部，保证首屏绘制时可以呈现页面的骨架内容，减少用户的白屏感知时间。</p>
+<p>如果你觉得，有用你可以参照视频，仔细学习，效果更好。<br>浏览器工作原理及在网页性能优化中的应用<br><a href="https://segmentfault.com/l/1500000015237807?r=bPrNrd" target="_blank" rel="noopener">https://segmentfault.com/l/1500000015237807?r=bPrNrd</a></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/blog/2018/10/27/浏览器工作原理及在网页性能优化中的应用/" data-id="cjnzfrsi4000kg8uqc8d0lj8t" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/blog/2018/10/27/浏览器工作原理及在网页性能优化中的应用/" data-id="cjodopu4g000ee0uqxwvqtke6" class="article-share-link">分享</a>
       
       
       
@@ -266,30 +316,22 @@ reconciliation阶段可随时中止或恢复任务
       
         <!-- Table of Contents -->
         
-        <h1 id="尝试升级webpack被坑"><a href="#尝试升级webpack被坑" class="headerlink" title="尝试升级webpack被坑"></a>尝试升级webpack被坑</h1><pre><code>原以为，这样整体替换，不会有，很多问题，天真了。  
-旧项目，使用 react 脚手架 create-react-app 创建且比较早，webpack 3.8.1  后面用于熟悉 react 和 antd 就没有过度关注。  
-最近刷了一边 webpack 不入门道，那干脆拿自己的项目，鼓捣鼓捣。  之前就项目就没怎么优化过（配置文件基本没改动过😂），所以可以直接整体替换所有脚手架配置文件。  
-将 AntD 和 less 文件，直接贴入 webpack 配置文件中，但是当把支持 装饰器 @ 的配置项 ‘transform-decorators-legacy’ 和 ‘less-loader’后，启动该项目，报错。  
-</code></pre><h2 id="装饰器-的配置有误"><a href="#装饰器-的配置有误" class="headerlink" title="装饰器 @ 的配置有误"></a>装饰器 @ 的配置有误</h2><h4 id="Failed-to-compile"><a href="#Failed-to-compile" class="headerlink" title="Failed to compile"></a>Failed to compile</h4><pre><code>./src/index.js
-Error: The &apos;decorators&apos; plugin requires a &apos;decoratorsBeforeExport&apos; option, whose value must be a boolean.  
-If you are migrating from Babylon/Babel 6 or want to use the old decorators proposal,  
-you should use the &apos;decorators-legacy&apos; plugin instead of &apos;decorators&apos;.   
-</code></pre><pre><code>大概意思，是说使用的插件有问题，换个试一试。  
-不明原理的，试了又是还是报错，最后找到这里解决了。  
-</code></pre><p><a href="https://github.com/ant-design/ant-design-pro/issues/2043" target="_blank" rel="noopener">点击这里，直接看最后一位大神的回复</a>   </p>
-<h2 id="less-配置有误"><a href="#less-配置有误" class="headerlink" title="less 配置有误"></a>less 配置有误</h2><h4 id="Failed-to-compile-1"><a href="#Failed-to-compile-1" class="headerlink" title="Failed to compile"></a>Failed to compile</h4><pre><code>./node_modules/antd/lib/radio/style/index.less (./node_modules/css-loader??ref--6-oneOf-7-1!./node_modules/postcss-loader/src??postcss!./node_modules/less-loader/dist/cjs.js??ref--6-oneOf-7-3!./node_modules/antd/lib/radio/style/index.less)
-
-// https://github.com/ant-design/ant-motion/issues/44
-.bezierEasingMixin();
-^
-Inline JavaScript is not enabled. Is it set in your options?
-</code></pre><pre><code>开启 Javascript 模式 
+        <h1 id="尝试升级-webpack-被坑"><a href="#尝试升级-webpack-被坑" class="headerlink" title="尝试升级 webpack 被坑"></a>尝试升级 webpack 被坑</h1><pre><code>原以为，这样整体替换，不会有，很多问题，天真了。
+旧项目，使用 react 脚手架 create-react-app 创建且比较早，webpack 3.8.1  后面用于熟悉 react 和 antd 就没有过度关注。
+最近刷了一边 webpack 不入门道，那干脆拿自己的项目，鼓捣鼓捣。  之前就项目就没怎么优化过（配置文件基本没改动过😂），所以可以直接整体替换所有脚手架配置文件。
+将 AntD 和 less 文件，直接贴入 webpack 配置文件中，但是当把支持 装饰器 @ 的配置项 ‘transform-decorators-legacy’ 和 ‘less-loader’后，启动该项目，报错。
+</code></pre><h2 id="装饰器-的配置有误"><a href="#装饰器-的配置有误" class="headerlink" title="装饰器 @ 的配置有误"></a>装饰器 @ 的配置有误</h2><h4 id="Failed-to-compile"><a href="#Failed-to-compile" class="headerlink" title="Failed to compile"></a>Failed to compile</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">./src/index.js</span><br><span class="line">Error: The &apos;decorators&apos; plugin requires a &apos;decoratorsBeforeExport&apos; option, whose value must be a boolean.</span><br><span class="line">If you are migrating from Babylon/Babel 6 or want to use the old decorators proposal,</span><br><span class="line">you should use the &apos;decorators-legacy&apos; plugin instead of &apos;decorators&apos;.</span><br></pre></td></tr></table></figure>
+<pre><code>大概意思，是说使用的插件有问题，换个试一试。
+不明原理的，试了又是还是报错，最后找到这里解决了。
+</code></pre><p><a href="https://github.com/ant-design/ant-design-pro/issues/2043" target="_blank" rel="noopener">点击这里，直接看最后一位大神的回复</a></p>
+<h2 id="less-配置有误"><a href="#less-配置有误" class="headerlink" title="less 配置有误"></a>less 配置有误</h2><h4 id="Failed-to-compile-1"><a href="#Failed-to-compile-1" class="headerlink" title="Failed to compile"></a>Failed to compile</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">./node_modules/antd/lib/radio/style/index.less (./node_modules/css-loader??ref--6-oneOf-7-1!./node_modules/postcss-loader/src??postcss!./node_modules/less-loader/dist/cjs.js??ref--6-oneOf-7-3!./node_modules/antd/lib/radio/style/index.less)</span><br><span class="line"></span><br><span class="line">// https://github.com/ant-design/ant-motion/issues/44</span><br><span class="line">.bezierEasingMixin();</span><br><span class="line">^</span><br><span class="line">Inline JavaScript is not enabled. Is it set in your options?</span><br></pre></td></tr></table></figure>
+<pre><code>开启 Javascript 模式
 </code></pre><p><a href="https://github.com/ant-design/ant-motion/issues/44" target="_blank" rel="noopener">点击，查看最后</a></p>
 <h2 id="虽然问题并不大，但是个人状态不错，记录勉励自己！！！"><a href="#虽然问题并不大，但是个人状态不错，记录勉励自己！！！" class="headerlink" title="虽然问题并不大，但是个人状态不错，记录勉励自己！！！"></a>虽然问题并不大，但是个人状态不错，记录勉励自己！！！</h2>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/blog/2018/10/25/旧create-react-app中webpack升级到webpack4/" data-id="cjnzfrshy000jg8uqv78d85xw" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/blog/2018/10/25/旧create-react-app中webpack升级到webpack4/" data-id="cjodopu4a000be0uq5n20mp5k" class="article-share-link">分享</a>
       
       
       
@@ -340,7 +382,7 @@ Inline JavaScript is not enabled. Is it set in your options?
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/blog/2018/10/17/Jocky职业建议/" data-id="cjnzfrsht000gg8uqusjo8ao3" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/blog/2018/10/17/Jocky职业建议/" data-id="cjodopu4o000je0uqvpw0ccli" class="article-share-link">分享</a>
       
       
       
@@ -380,14 +422,15 @@ Inline JavaScript is not enabled. Is it set in your options?
       
         <!-- Table of Contents -->
         
-        <h1 id="RESTFul-API-推荐"><a href="#RESTFul-API-推荐" class="headerlink" title="RESTFul API 推荐"></a>RESTFul API 推荐</h1><h1 id="豆瓣"><a href="#豆瓣" class="headerlink" title="豆瓣"></a>豆瓣</h1><p><a href="https://developers.douban.com/wiki/?title=guide" target="_blank" rel="noopener">https://developers.douban.com/wiki/?title=guide</a><br>据说，暂时维护，不对外开放，你可以科学上网看看，没做前端之前还看到过。<br>后面了解到，可以这样解决，使用代理，将豆瓣API地址换成 <a href="https://douban.uieee.com" target="_blank" rel="noopener">https://douban.uieee.com</a> ; 但是请设置请求头，header默认为： “ontent-type”: “application/json” ，仍然会报400错误，将请求头中json设置改为xml或者空，就是不能设置”ontent-type” 😥😥，请求成功；(详细，看小程序开发代码)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">header: &#123;</span><br><span class="line">    &quot;Content-Type&quot;: &quot;xml&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h1 id="微博"><a href="#微博" class="headerlink" title="微博"></a>微博</h1><p><a href="http://open.weibo.com/wiki/%E5%BE%AE%E5%8D%9AAPI" target="_blank" rel="noopener">http://open.weibo.com/wiki/%E5%BE%AE%E5%8D%9AAPI</a><br>我是做前端的，看着 文档布局伐开心，哎！人家可是免费使用还有意见。  </p>
-<h1 id="Github-最牛的没有之一"><a href="#Github-最牛的没有之一" class="headerlink" title="Github - 最牛的没有之一"></a>Github - 最牛的没有之一</h1><p><a href="https://developer.github.com/v3/" target="_blank" rel="noopener">https://developer.github.com/v3/</a>  </p>
+        <h1 id="RESTFul-API-推荐"><a href="#RESTFul-API-推荐" class="headerlink" title="RESTFul API 推荐"></a>RESTFul API 推荐</h1><h1 id="豆瓣"><a href="#豆瓣" class="headerlink" title="豆瓣"></a>豆瓣</h1><p><a href="https://developers.douban.com/wiki/?title=guide" target="_blank" rel="noopener">https://developers.douban.com/wiki/?title=guide</a><br>据说，暂时维护，不对外开放，你可以科学上网看看，没做前端之前还看到过。<br>后面了解到，可以这样解决，使用代理，将豆瓣 API 地址换成 <a href="https://douban.uieee.com" target="_blank" rel="noopener">https://douban.uieee.com</a> ; 但是请设置请求头，header 默认为： “ontent-type”: “application/json” ，仍然会报 400 错误，将请求头中 json 设置改为 xml 或者空，就是不能设置”ontent-type” 😥😥，请求成功；(详细，看小程序开发代码)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">header: &#123;</span><br><span class="line">    &quot;Content-Type&quot;: &quot;xml&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="微博"><a href="#微博" class="headerlink" title="微博"></a>微博</h1><p><a href="http://open.weibo.com/wiki/%E5%BE%AE%E5%8D%9AAPI" target="_blank" rel="noopener">http://open.weibo.com/wiki/%E5%BE%AE%E5%8D%9AAPI</a><br>我是做前端的，看着 文档布局伐开心，哎！人家可是免费使用还有意见。</p>
+<h1 id="Github-最牛的没有之一"><a href="#Github-最牛的没有之一" class="headerlink" title="Github - 最牛的没有之一"></a>Github - 最牛的没有之一</h1><p><a href="https://developer.github.com/v3/" target="_blank" rel="noopener">https://developer.github.com/v3/</a></p>
 <h1 id="了解-“颗粒度”"><a href="#了解-“颗粒度”" class="headerlink" title="了解 “颗粒度”"></a>了解 “颗粒度”</h1>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/blog/2018/10/17/推荐RESFulAPI/" data-id="cjnzfrshy000ig8uqxpca06b7" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/blog/2018/10/17/推荐RESFulAPI/" data-id="cjodopu47000ae0uq0blzi4uo" class="article-share-link">分享</a>
       
       
       
@@ -427,15 +470,15 @@ Inline JavaScript is not enabled. Is it set in your options?
       
         <!-- Table of Contents -->
         
-        <h1 id="hexo-常规使用"><a href="#hexo-常规使用" class="headerlink" title="hexo 常规使用"></a>hexo 常规使用</h1><h1 id="新建页面"><a href="#新建页面" class="headerlink" title="新建页面"></a>新建页面</h1><pre><code>hexo new Page Theme  
+        <h1 id="hexo-常规使用"><a href="#hexo-常规使用" class="headerlink" title="hexo 常规使用"></a>hexo 常规使用</h1><h1 id="新建页面"><a href="#新建页面" class="headerlink" title="新建页面"></a>新建页面</h1><pre><code>hexo new Page Theme
 </code></pre><h1 id="上传书写好的内容"><a href="#上传书写好的内容" class="headerlink" title="上传书写好的内容"></a>上传书写好的内容</h1><pre><code>hexo clean
 hexo g
-hexo deploy  
+hexo deploy
 </code></pre>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/blog/2018/10/16/hexo常规使用/" data-id="cjnzfrshn000eg8uqjfox2hg0" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/blog/2018/10/16/hexo常规使用/" data-id="cjodopu420008e0uq2lrgtv4g" class="article-share-link">分享</a>
       
       
       
@@ -475,7 +518,7 @@ hexo deploy
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/blog/2018/10/11/webpack2-x升级a到4-x/" data-id="cjnzfrsh00007g8uqv7uzctt3" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/blog/2018/10/11/webpack2-x升级a到4-x/" data-id="cjodopu3z0007e0uq75dpxnsx" class="article-share-link">分享</a>
       
       
       
@@ -515,15 +558,15 @@ hexo deploy
       
         <!-- Table of Contents -->
         
-        <h2 id="同事推荐，感觉甚好。"><a href="#同事推荐，感觉甚好。" class="headerlink" title="同事推荐，感觉甚好。"></a>同事推荐，感觉甚好。</h2><p>重读经典，好好学，尽力该。  </p>
-<p>第一封：起点不决定终点<br>格言：我们的命运由我们的行动决定，而绝非完全由我们的出身决定。<br>享有特权而无力量的人是废物，受过教育而无影响的人是一堆一文不值的垃圾。<br>(Men of privilege without power are waste-material.Men of enlightenment without influence ate the poorest kind of rubbish.)<br>july 20, 1897<br>亲爱的约翰：<br>　　 你希望我能永远同你一起出航，这听起来很不错，但我不是你永远的船长。上帝为我们创造双脚，是要让我们靠自己的双脚走路。<br>也许你尚未做好独自前行的准备，但你需要知道，我所置身的那个充满挑战与神奇的商业世界，是你新生活的出发地，你将从那里开始参加你不曾享用而又关乎你未来的人生盛宴。至于你如何使用摆放在你生命面前的刀叉，和如何品味命运天使奉上的每一道菜肴，那完全要靠你自己。<br>当然，我期望你在不远的将来就能卓尔不群，并胜我一筹。而我决定将你留在我身边，无非是想把你带到你事业生涯的高起点，让你无须艰难攀爬便可享有迅速腾达的机会。<br>　　 这当然没有什么值得你庆幸和炫耀的，更无须你感激。美利坚合众国的建国信念是人人生而平等，但这种平等是权利与法律意义上的平等，与经济和文化优势无关。想想看，我们这个世界就如同一座高山，当你的父母生活在山顶上时，注定你不会生活在山脚下；当你的父母生活在山脚下时，注定你不会生活在山顶上。在多数情况下，父母的位置决定了孩子的人生起点。<br>　　 但这并不意味着，每个人的起点不同，其人生结果也不同。在这个世界上，永远没有穷、富世袭之说，也永远没有成、败世袭之说，有的只是我奋斗我成功的真理。我坚信，我们的命运由我们的行动决定，而绝非完全由我们的出身决定。<br>就像你所知道的那样，在我小的时候，家境十分贫寒，记得我刚上中学时所用的书本都是好心的邻居为我买的，我的人生开始时也只是一个周薪只有 5 元钱的簿记员，但经由不懈的奋斗我却建立了一个令人艳羡的石油王国。在他人眼里这似乎是个传奇，我却认为这是对我持之以恒、积极奋斗的回报，是命运之神对我艰苦付出的奖赏。<br>　　 约翰，机会永远都会不平等，但结果却可能平等。在历史上，无论是在政界还是在商界，尤其在商界，白手起家的事例俯拾皆是，他们都曾因贫穷而少有机会，他们却都因奋斗而功成名就。然而，历史上也充斥着富家子弟拥有所有优势，却走向失败的事例。麻州的一项统计数字说，十七个有钱人的孩子里面，竟然没有一个在离开这个世界时还是富翁。<br>　　 而在很久以前，社会上便流传着一个讽刺富家子弟无能的故事，说在费城的一个小酒吧里，一位客人谈起某位百万富翁，说：“他是白手起家的百万富翁。”“是啊，”旁边一位比较精明的先生回答说，：“他继承了两千万，然后他把这笔钱变成了一百万。”<br>　　 这是一个令人痛心的故事。但在我们今天这年社会，富家子弟正处在一种不进则退的窘境之中，他们中的很多人注定要受人同情和怜悯，甚至要下地狱。<br>家族的荣耀与成功的历史，不能保证其子孙后代的未来将会美好。我承认早期的优势的确大有帮助，但它不能保证最后会赢得胜利。我曾不止一次地思考这个对富家子弟而言带有悲哀性的问题，我似乎觉得，富家子弟开始承担了优势，却很少有机会去学习和发展生存所需要的技巧。而出身低贱的人因迫切需要解救自身，便会积极发挥创意和能力，且珍视和抢占各种机会。我还观察到，富家子弟缺乏贫贱之人的那种要拯救自己的野心，也只得祈祷上帝赐予他成就了。<br>所以，在你和你的姐姐们很小的时候，我就有意识地不让你们知道你们的父亲是个富人，我向你们灌输最多的是诸如节俭、个人奋斗等价值观念，因为我知道给人带来伤害最快捷的途径就是给钱，它可以让人腐化堕落、飞扬跋扈、不可一世，失去最美好的快乐。我不能用财富埋葬我心爱的孩子，愚蠢地让你们成为不思进取、只知依赖父母的果实的无能者。<br>　　一个真正快乐的人，是能够享受他的创造的人。那些像海绵一样，只取不予的人，只会失去快乐。<br>我相信没有不渴望过上快乐、高贵生活的人，但真正懂得高贵快乐生活从何而来的人却不多。在我看来，高贵快乐的生活，不是来自高贵的血统，也不是来自高贵的生活方式，而是来自高贵的品格——自立精神，看看那些赢得世人尊重、处处施展魅力的高贵的人，我们就知道自立的可贵。<br>　　约翰，你的每一个举动都会成为我挂念。但与这种挂念相比，我更对你充满信心，相信你优异的品格——比世界上任何财富都更有价值的品格，将帮助你铺设出一条美好的前程，并将助你拥有成功而又充实的人生。<br>　　但你需要强化这样的信念：起点可能影响结果，但不会决定结果。能力、态度、性格、抱负、手段、经验和运气之类的因素，在人生和商业世界里扮演着极为重要的角色。你的人生刚刚开始，但一场人生之战就在你面前。我能深切地感觉到你想成为这场战争的胜者，但你要知道，每个人都有追求胜利的意志，只有决心做好准备的人才会赢得胜利。<br>　　我的儿子，享有特权而无力量的人是废物，受过教育而无影响的人是一堆一文不值的垃圾。找到自己的路，上帝就会帮你！<br>　　爱你的父亲  </p>
+        <h2 id="同事推荐，感觉甚好。"><a href="#同事推荐，感觉甚好。" class="headerlink" title="同事推荐，感觉甚好。"></a>同事推荐，感觉甚好。</h2><p>重读经典，好好学，尽力该。</p>
+<p>第一封：起点不决定终点<br>格言：我们的命运由我们的行动决定，而绝非完全由我们的出身决定。<br>享有特权而无力量的人是废物，受过教育而无影响的人是一堆一文不值的垃圾。<br>(Men of privilege without power are waste-material.Men of enlightenment without influence ate the poorest kind of rubbish.)<br>july 20, 1897<br>亲爱的约翰：<br>　　 你希望我能永远同你一起出航，这听起来很不错，但我不是你永远的船长。上帝为我们创造双脚，是要让我们靠自己的双脚走路。<br>也许你尚未做好独自前行的准备，但你需要知道，我所置身的那个充满挑战与神奇的商业世界，是你新生活的出发地，你将从那里开始参加你不曾享用而又关乎你未来的人生盛宴。至于你如何使用摆放在你生命面前的刀叉，和如何品味命运天使奉上的每一道菜肴，那完全要靠你自己。<br>当然，我期望你在不远的将来就能卓尔不群，并胜我一筹。而我决定将你留在我身边，无非是想把你带到你事业生涯的高起点，让你无须艰难攀爬便可享有迅速腾达的机会。<br>　　 这当然没有什么值得你庆幸和炫耀的，更无须你感激。美利坚合众国的建国信念是人人生而平等，但这种平等是权利与法律意义上的平等，与经济和文化优势无关。想想看，我们这个世界就如同一座高山，当你的父母生活在山顶上时，注定你不会生活在山脚下；当你的父母生活在山脚下时，注定你不会生活在山顶上。在多数情况下，父母的位置决定了孩子的人生起点。<br>　　 但这并不意味着，每个人的起点不同，其人生结果也不同。在这个世界上，永远没有穷、富世袭之说，也永远没有成、败世袭之说，有的只是我奋斗我成功的真理。我坚信，我们的命运由我们的行动决定，而绝非完全由我们的出身决定。<br>就像你所知道的那样，在我小的时候，家境十分贫寒，记得我刚上中学时所用的书本都是好心的邻居为我买的，我的人生开始时也只是一个周薪只有 5 元钱的簿记员，但经由不懈的奋斗我却建立了一个令人艳羡的石油王国。在他人眼里这似乎是个传奇，我却认为这是对我持之以恒、积极奋斗的回报，是命运之神对我艰苦付出的奖赏。<br>　　 约翰，机会永远都会不平等，但结果却可能平等。在历史上，无论是在政界还是在商界，尤其在商界，白手起家的事例俯拾皆是，他们都曾因贫穷而少有机会，他们却都因奋斗而功成名就。然而，历史上也充斥着富家子弟拥有所有优势，却走向失败的事例。麻州的一项统计数字说，十七个有钱人的孩子里面，竟然没有一个在离开这个世界时还是富翁。<br>　　 而在很久以前，社会上便流传着一个讽刺富家子弟无能的故事，说在费城的一个小酒吧里，一位客人谈起某位百万富翁，说：“他是白手起家的百万富翁。”“是啊，”旁边一位比较精明的先生回答说，：“他继承了两千万，然后他把这笔钱变成了一百万。”<br>　　 这是一个令人痛心的故事。但在我们今天这年社会，富家子弟正处在一种不进则退的窘境之中，他们中的很多人注定要受人同情和怜悯，甚至要下地狱。<br>家族的荣耀与成功的历史，不能保证其子孙后代的未来将会美好。我承认早期的优势的确大有帮助，但它不能保证最后会赢得胜利。我曾不止一次地思考这个对富家子弟而言带有悲哀性的问题，我似乎觉得，富家子弟开始承担了优势，却很少有机会去学习和发展生存所需要的技巧。而出身低贱的人因迫切需要解救自身，便会积极发挥创意和能力，且珍视和抢占各种机会。我还观察到，富家子弟缺乏贫贱之人的那种要拯救自己的野心，也只得祈祷上帝赐予他成就了。<br>所以，在你和你的姐姐们很小的时候，我就有意识地不让你们知道你们的父亲是个富人，我向你们灌输最多的是诸如节俭、个人奋斗等价值观念，因为我知道给人带来伤害最快捷的途径就是给钱，它可以让人腐化堕落、飞扬跋扈、不可一世，失去最美好的快乐。我不能用财富埋葬我心爱的孩子，愚蠢地让你们成为不思进取、只知依赖父母的果实的无能者。<br>　　一个真正快乐的人，是能够享受他的创造的人。那些像海绵一样，只取不予的人，只会失去快乐。<br>我相信没有不渴望过上快乐、高贵生活的人，但真正懂得高贵快乐生活从何而来的人却不多。在我看来，高贵快乐的生活，不是来自高贵的血统，也不是来自高贵的生活方式，而是来自高贵的品格——自立精神，看看那些赢得世人尊重、处处施展魅力的高贵的人，我们就知道自立的可贵。<br>　　约翰，你的每一个举动都会成为我挂念。但与这种挂念相比，我更对你充满信心，相信你优异的品格——比世界上任何财富都更有价值的品格，将帮助你铺设出一条美好的前程，并将助你拥有成功而又充实的人生。<br>　　但你需要强化这样的信念：起点可能影响结果，但不会决定结果。能力、态度、性格、抱负、手段、经验和运气之类的因素，在人生和商业世界里扮演着极为重要的角色。你的人生刚刚开始，但一场人生之战就在你面前。我能深切地感觉到你想成为这场战争的胜者，但你要知道，每个人都有追求胜利的意志，只有决心做好准备的人才会赢得胜利。<br>　　我的儿子，享有特权而无力量的人是废物，受过教育而无影响的人是一堆一文不值的垃圾。找到自己的路，上帝就会帮你！<br>　　爱你的父亲</p>
 <hr>
 <p>我很穷的不应该把，那颗拯救自己的野心也丢了。<br>当长时间，看一类知识的是时候，尝试通过观看，别的文章进行，调接如 人物传记。</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/blog/2018/10/08/《洛克菲勒留给儿子的38封信》/" data-id="cjnzfrsh00005g8uqs2b6nw8n" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/blog/2018/10/08/《洛克菲勒留给儿子的38封信》/" data-id="cjodoptzo0004e0uq80niqlhj" class="article-share-link">分享</a>
       
       
       
@@ -568,48 +611,7 @@ hexo deploy
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/blog/2018/10/08/函数中的this是谁/" data-id="cjnzfrsh00006g8uqpqb165jf" class="article-share-link">分享</a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
- 
-
-
-  
-    <article id="post-possible" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/blog/2018/10/07/possible/" class="article-date">
-  <time datetime="2018-10-07T13:56:17.000Z" itemprop="datePublished">2018-10-07</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/2018/10/07/possible/">possible</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <!-- Table of Contents -->
-        
-        <h2 id="可能性"><a href="#可能性" class="headerlink" title="可能性"></a>可能性</h2><p>关于这个主题，写一些东西，30岁才是一个开始，不要想的那么狭小，当你50、60时，你会怎么操作？<br>骚气一点回答</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/blog/2018/10/07/possible/" data-id="cjnzfrsgu0001g8uqyv8flvf9" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/blog/2018/10/08/函数中的this是谁/" data-id="cjodopu3x0006e0uq5e4tpa7v" class="article-share-link">分享</a>
       
       
       
@@ -655,7 +657,7 @@ hexo deploy
   <div class="widget-wrap">
     <h3 class="widget-title categories">分类</h3>
     <div class="widget" id="categories">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/JavaScript/">JavaScript</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/小记/">小记</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/视频学习/">视频学习</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/读书笔记/">读书笔记</a><span class="category-list-count">2</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/JavaScript/">JavaScript</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/小记/">小记</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/视频学习/">视频学习</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/读书笔记/">读书笔记</a><span class="category-list-count">3</span></li></ul>
     </div>
   </div>
 
@@ -666,6 +668,10 @@ hexo deploy
     <h3 class="widget-title recent-posts">最新文章</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/blog/2018/11/06/阅读内存空间详细图解收获/">阅读内存空间详细图解收获</a>
+          </li>
         
           <li>
             <a href="/blog/2018/10/31/ReactFiber是什么/">ReactFiber是什么</a>
@@ -683,10 +689,6 @@ hexo deploy
             <a href="/blog/2018/10/17/Jocky职业建议/">Jocky职业建议</a>
           </li>
         
-          <li>
-            <a href="/blog/2018/10/17/推荐RESFulAPI/">推荐RESFulAPI</a>
-          </li>
-        
       </ul>
     </div>
   </div>
@@ -696,7 +698,7 @@ hexo deploy
   <div class="widget-wrap">
     <h3 class="widget-title archive">归档</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a><span class="archive-list-count">1</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a><span class="archive-list-count">1</span></li></ul>
     </div>
   </div>
 
